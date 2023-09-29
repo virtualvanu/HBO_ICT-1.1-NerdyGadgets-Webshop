@@ -3,6 +3,7 @@
 include __DIR__ . "/header.php";
 ?>
 <div class="IndexStyle">
+    <h2>Nieuwe voorraad</h2>
     <div class="col-11">
         <div class="TextPrice">
             <a href="view.php?id=93">

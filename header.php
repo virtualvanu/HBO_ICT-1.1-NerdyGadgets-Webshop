@@ -20,6 +20,7 @@ $databaseConnection = connectToDatabase();
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
+    <link rel="stylesheet" href="Public/CSS/mijn.css" type="text/css">
 </head>
 <body>
 <div class="Background">
