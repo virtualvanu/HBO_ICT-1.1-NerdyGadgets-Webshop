@@ -195,3 +195,7 @@ if (isset($amount)) {
 <?php
 include __DIR__ . "/footer.php";
 ?>
+
+//producten bekijken
+<a class="ListItem" href='view.php?id=<?php print $row['StockItemID']; ?>'>
+</a>
