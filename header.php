@@ -26,7 +26,7 @@ $databaseConnection = connectToDatabase();
     <div class="row" id="Header">
         <div class="col-2"><a href="./" id="LogoA">
                 <div id="LogoImage">
-                    <img src="images/nerdygadgets.png" alt="logo" >
+                    <img src="Images/nerdygadgets.png" alt="logo" width="250" height="140">
                 </div>
             </a></div>
         <div class="col-8" id="CategoriesBar">
