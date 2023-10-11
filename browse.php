@@ -280,7 +280,6 @@ if (isset($amount)) {
                     <h4 class="ItemQuantity"><?php print getVoorraadTekst($row["QuantityOnHand"]); ?></h4>
                 </div>
             <!--  coderegel 2 van User story: bekijken producten  -->
-            //producten bekijken
             <a class="ListItem" href='view.php?id=<?php print $row['StockItemID']; ?>'>
             </a>
 
