@@ -284,7 +284,7 @@ if (isset($amount)) {
             </a>
 
 
-            <!--  einde coderegel 2 van User story: bekijken producten  -->
+            <!--  einde coderegel 2 van User story: bekijken producten.  -->
         <?php } ?>
 
         <form id="PageSelector">
