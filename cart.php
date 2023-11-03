@@ -1,6 +1,7 @@
 <?php
 include "cartfuncties.php";
-include "database.php";
+include __DIR__ . "/header.php";
+$dbConnection = connectToDatabase();
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -22,14 +23,14 @@ include "database.php";
     {
         $itemPrice = 9999;
         $itemName = "UNDEFINED";
-        $itemInfo = getStockItem($itemId, connectToDatabase());
+        $itemInfo = getStockItem($itemId, $dbConnection);
 
         $itemName = $itemInfo["StockItemName"];
         $itemPrice = round($itemInfo["SellPrice"], 2);
-
+        $totalItemPrice = $itemPrice * $itemAmount;
         $htmlstring = "<tr>
         <th>$itemName</th>
-        <th>$itemPrice</th>
+        <th>$totalItemPrice</th>
         <th>$itemAmount</th>
         </tr>";
 
