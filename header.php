@@ -1,6 +1,6 @@
 <!-- de inhoud van dit bestand wordt bovenaan elke pagina geplaatst -->
 <?php
-session_start();
+//session_start(); Tijdelijk verwijderd voor implementatie winkelmand
 include "database.php";
 $databaseConnection = connectToDatabase();
 ?>
