@@ -21,6 +21,9 @@ $dbConnection = connectToDatabase();
     $cart = getCart();
     foreach($cart as $itemId => $itemAmount)
     {
+
+
+
         $itemPrice = 9999;
         $itemName = "UNDEFINED";
         $itemInfo = getStockItem($itemId, $dbConnection);
@@ -29,13 +32,20 @@ $dbConnection = connectToDatabase();
         $itemPrice = round($itemInfo["SellPrice"], 2);
         $totalItemPrice = $itemPrice * $itemAmount;
         $htmlstring = "<tr>
-        <th>$itemName</th>
+        <th><a href='view.php?id=$itemId'>$itemName</a></th>
         <th>$totalItemPrice</th>
-        <th>$itemAmount</th>
+        <th> <input type='number' value='$itemAmount' min='0'></th>
+         <th>
+         <form method='post' action='cart.php'>
+        
+         <input type='submit' name='modify' id='MODIFY' value='X'>
+         </form>
+         </th>
         </tr>";
-
         print($htmlstring);
     }
+
+
     //print_r($cart);
     //gegevens per artikelen in $cart (naam, prijs, etc.) uit database halen
     //totaal prijs berekenen
@@ -45,6 +55,6 @@ $dbConnection = connectToDatabase();
     ?>
 </table>
 
-<p><a href='view.php?id=0'>Naar artikelpagina van artikel 0</a></p>
+<!-- <p><a href='view.php?id=0'>Naar artikelpagina van artikel 0</a></p> -->
 </body>
 </html>
