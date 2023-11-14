@@ -11,6 +11,7 @@ $dbConnection = connectToDatabase();
 </head>
 <body>
 <h1>Inhoud Winkelwagen</h1>
+<table>
     <tr>
         <th>Product</th>
         <th>Prijs</th>
@@ -27,15 +28,24 @@ $dbConnection = connectToDatabase();
         $cart = getCart();
     }
 
-    if(isset($_POST['modifyform']))
+    if(isset($_POST['modifiedAmount']))
     {
-        $newAmount = $_POST['amount'];
+        $newAmount = $_POST['modifiedAmount'];
         $item = $_POST['modifiedproduct'];
 
-        $cart[$item] = $newAmount;
-        print_r($cart);
-        saveCart($cart);
-        $cart = getCart();
+        if($newAmount <= 0)
+        {
+            removeProductFromCart($item);
+            $cart = getCart();
+
+        }
+        else
+        {
+            $cart[$item] = $newAmount;
+            saveCart($cart);
+            $cart = getCart();
+        }
+
 
     }
 
@@ -53,13 +63,14 @@ $dbConnection = connectToDatabase();
         $totalItemPrice = $itemPrice * $itemAmount;
 
         $htmlstring = "<tr>
-        <th><a href='view.php?id=$itemId'>$itemName</a></th>
+        <th>
+            <a href='view.php?id=$itemId'>$itemName</a>
+        </th>
         <th>$totalItemPrice</th>
         <th> 
-            <form method='post' action='cart.php'>
-                <input type='number' value='$itemAmount' min='0' onchange='this.form.submit()' name='amount'>
+            <form method='post' action='cart.php' name='modifyform' id='MODIFY'>
+                <input type='number' value='$itemAmount' min='0' onchange='this.form.submit()' name='modifiedAmount'>
                 <input type='hidden' name='modifiedproduct' value='$itemId'>
-                <input type='submit' name='modifyform' id='MODIFY' hidden='hidden' '>
             </form>
         </th>
            
@@ -72,8 +83,6 @@ $dbConnection = connectToDatabase();
         </tr>";
         print($htmlstring);
     }
-
-
 
     //print_r($cart);
     //gegevens per artikelen in $cart (naam, prijs, etc.) uit database halen
