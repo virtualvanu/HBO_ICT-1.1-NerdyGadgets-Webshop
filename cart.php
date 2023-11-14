@@ -27,6 +27,18 @@ $dbConnection = connectToDatabase();
         $cart = getCart();
     }
 
+    if(isset($_POST['modifyform']))
+    {
+        $newAmount = $_POST['amount'];
+        $item = $_POST['modifiedproduct'];
+
+        $cart[$item] = $newAmount;
+        print_r($cart);
+        saveCart($cart);
+        $cart = getCart();
+
+    }
+
     foreach($cart as $itemId => $itemAmount)
     {
 
@@ -43,12 +55,19 @@ $dbConnection = connectToDatabase();
         $htmlstring = "<tr>
         <th><a href='view.php?id=$itemId'>$itemName</a></th>
         <th>$totalItemPrice</th>
-        <th> <input type='number' value='$itemAmount' min='0'></th>
+        <th> 
+            <form method='post' action='cart.php'>
+                <input type='number' value='$itemAmount' min='0' onchange='this.form.submit()' name='amount'>
+                <input type='hidden' name='modifiedproduct' value='$itemId'>
+                <input type='submit' name='modifyform' id='MODIFY' hidden='hidden' '>
+            </form>
+        </th>
+           
          <th>
-        <form method='post' action='cart.php'>
+            <form method='post' action='cart.php'>
                 <input type='hidden' name='product' value='$itemId'>
                 <input type='submit' name='removeform' id='REMOVE' value='X'>
-                </form>
+            </form>
          </th>
         </tr>";
         print($htmlstring);
