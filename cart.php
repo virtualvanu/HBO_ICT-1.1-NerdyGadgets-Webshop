@@ -11,14 +11,22 @@ $dbConnection = connectToDatabase();
 </head>
 <body>
 <h1>Inhoud Winkelwagen</h1>
-<table>
     <tr>
         <th>Product</th>
         <th>Prijs</th>
         <th>Aantal</th>
     </tr>
     <?php
+
     $cart = getCart();
+
+    if(isset($_POST['removeform']))
+    {
+        $removeID = $_POST['product'];
+        removeProductFromCart($removeID);
+        $cart = getCart();
+    }
+
     foreach($cart as $itemId => $itemAmount)
     {
 
@@ -31,19 +39,21 @@ $dbConnection = connectToDatabase();
         $itemName = $itemInfo["StockItemName"];
         $itemPrice = round($itemInfo["SellPrice"], 2);
         $totalItemPrice = $itemPrice * $itemAmount;
+
         $htmlstring = "<tr>
         <th><a href='view.php?id=$itemId'>$itemName</a></th>
         <th>$totalItemPrice</th>
         <th> <input type='number' value='$itemAmount' min='0'></th>
          <th>
-         <form method='post' action='cart.php'>
-        
-         <input type='submit' name='modify' id='MODIFY' value='X'>
-         </form>
+        <form method='post' action='cart.php'>
+                <input type='hidden' name='product' value='$itemId'>
+                <input type='submit' name='removeform' id='REMOVE' value='X'>
+                </form>
          </th>
         </tr>";
         print($htmlstring);
     }
+
 
 
     //print_r($cart);
@@ -53,8 +63,8 @@ $dbConnection = connectToDatabase();
     //etc.
 
     ?>
+
 </table>
 
-<!-- <p><a href='view.php?id=0'>Naar artikelpagina van artikel 0</a></p> -->
 </body>
 </html>
