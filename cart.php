@@ -49,6 +49,8 @@ $dbConnection = connectToDatabase();
 
     }
 
+    $cartTotal = 0;
+
     foreach($cart as $itemId => $itemAmount)
     {
 
@@ -61,6 +63,7 @@ $dbConnection = connectToDatabase();
         $itemName = $itemInfo["StockItemName"];
         $itemPrice = round($itemInfo["SellPrice"], 2);
         $totalItemPrice = $itemPrice * $itemAmount;
+        $cartTotal += $totalItemPrice;
 
         $htmlstring = "<tr>
         <th>
@@ -81,9 +84,20 @@ $dbConnection = connectToDatabase();
             </form>
          </th>
         </tr>";
+
+
+
         print($htmlstring);
     }
 
+    $totalPriceHTML = "
+        <tr>
+        <th>Totaal: </th>
+        <th>$cartTotal</th>
+        </tr>
+        ";
+    print($totalPriceHTML);
+    
     //print_r($cart);
     //gegevens per artikelen in $cart (naam, prijs, etc.) uit database halen
     //totaal prijs berekenen
