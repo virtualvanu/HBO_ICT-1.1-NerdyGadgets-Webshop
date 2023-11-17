@@ -18,7 +18,39 @@ $dbConnection = connectToDatabase();
         <th>Aantal</th>
     </tr>
     <?php
+
     $cart = getCart();
+
+    if(isset($_POST['removeform']))
+    {
+        $removeID = $_POST['product'];
+        removeProductFromCart($removeID);
+        $cart = getCart();
+    }
+
+    if(isset($_POST['modifiedAmount']))
+    {
+        $newAmount = $_POST['modifiedAmount'];
+        $item = $_POST['modifiedproduct'];
+
+        if($newAmount <= 0)
+        {
+            removeProductFromCart($item);
+            $cart = getCart();
+
+        }
+        else
+        {
+            $cart[$item] = $newAmount;
+            saveCart($cart);
+            $cart = getCart();
+        }
+
+
+    }
+
+    $cartTotal = 0;
+
     foreach($cart as $itemId => $itemAmount)
     {
 
@@ -31,21 +63,41 @@ $dbConnection = connectToDatabase();
         $itemName = $itemInfo["StockItemName"];
         $itemPrice = round($itemInfo["SellPrice"], 2);
         $totalItemPrice = $itemPrice * $itemAmount;
+        $cartTotal += $totalItemPrice;
+
         $htmlstring = "<tr>
-        <th><a href='view.php?id=$itemId'>$itemName</a></th>
+        <th>
+            <a href='view.php?id=$itemId'>$itemName</a>
+        </th>
         <th>$totalItemPrice</th>
-        <th> <input type='number' value='$itemAmount' min='0'></th>
+        <th> 
+            <form method='post' action='cart.php' name='modifyform' id='MODIFY'>
+                <input type='number' value='$itemAmount' min='0' onchange='this.form.submit()' name='modifiedAmount'>
+                <input type='hidden' name='modifiedproduct' value='$itemId'>
+            </form>
+        </th>
+           
          <th>
-         <form method='post' action='cart.php'>
-        
-         <input type='submit' name='modify' id='MODIFY' value='X'>
-         </form>
+            <form method='post' action='cart.php'>
+                <input type='hidden' name='product' value='$itemId'>
+                <input type='submit' name='removeform' id='REMOVE' value='X'>
+            </form>
          </th>
         </tr>";
+
+
+
         print($htmlstring);
     }
 
-
+    $totalPriceHTML = "
+        <tr>
+        <th>Totaal: </th>
+        <th>$cartTotal</th>
+        </tr>
+        ";
+    print($totalPriceHTML);
+    
     //print_r($cart);
     //gegevens per artikelen in $cart (naam, prijs, etc.) uit database halen
     //totaal prijs berekenen
@@ -53,8 +105,8 @@ $dbConnection = connectToDatabase();
     //etc.
 
     ?>
+
 </table>
 
-<!-- <p><a href='view.php?id=0'>Naar artikelpagina van artikel 0</a></p> -->
 </body>
 </html>
