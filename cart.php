@@ -19,6 +19,11 @@ $dbConnection = connectToDatabase();
     </tr>
     <?php
 
+    function HelloConflict()
+    {
+        print("I'm a merge conflict!");
+    }
+    
     $cart = getCart();
 
     if(isset($_POST['removeform']))
