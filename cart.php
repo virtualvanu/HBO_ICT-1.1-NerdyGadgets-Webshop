@@ -116,7 +116,7 @@ $dbConnection = connectToDatabase();
 </table>
 <div id="afrekenen">
     <a href="http://localhost/nerdygadgets/Bestelscherm.php">
-<button style="background-color:#676EFF; border-radius: 8px; color: white; padding: 10px 20px; font-family: vortice-concept, sans-serif; font-weight: bold; position:relative; left:1300px; top:2px">Bestellen</button>
+<button style="background-color:#676EFF; border-radius: 8px; color: white; padding: 10px 20px; font-family: vortice-concept, sans-serif; font-weight: bold; position:relative; left:1300px; top:2px">BESTELLEN</button>
 </a>
 </div>
 </body>
