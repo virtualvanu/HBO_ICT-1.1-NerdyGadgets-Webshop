@@ -1,0 +1,15 @@
+ul#ul-class li {
+    display: inline;
+    color: white;
+    margin-right: 1em;
+    font-size: 28px;
+    text-decoration: none;
+    line-height: 200px;
+}
+h2{
+    font-size: 84px;
+    text-align: center;
+    margin-bottom: -100px;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #ffffff;
+}
