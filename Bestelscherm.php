@@ -7,12 +7,14 @@ $databaseConnection = connectToDatabase();
 <!DOCTYPE html>
 <html lang="nl">
 <style>
-    .head {display: inline-flex}
-
-
-
+    .head {display: inline-flex; style=border-bottom: 1px green}
 </style>
-
+<style>
+    .naam {width: 33%; margin-right: 10px }
+    </style>
+<style>
+    .gegevens {background-color: rgb(35, 35, 47) ; border-radius: 8px; border:solid antiquewhite; color: antiquewhite}
+</style>
 <head class="head">
     <meta charset="UTF-8">
     <title>Bestelscherm</title>
@@ -30,6 +32,22 @@ $databaseConnection = connectToDatabase();
     <link rel="stylesheet" href="Public/CSS/typekit.css">
 </head>
 <body style="border-top: 1px solid rgb(36, 41, 143)">
+<form method="POST" action="verwerk.php" style="200px; margin-left: 200px;display: inline-block">
+    <p style="display: inline-flex; background-color: rgb(35, 35, 47) ;">
+    <input type="text" name="voornaam" value="" placeholder="Voornaam" class="naam" style="background-color: rgb(35, 35, 47) ; border-radius: 8px; border:solid antiquewhite; color: antiquewhite"> <br>
+    <br><input type="text" name="tussenvoegsel" value="" placeholder="Tussenvoegsel" style="width: 25%; margin-right: 10px ;background-color: rgb(35, 35, 47) ; border-radius: 8px; border:solid antiquewhite; color: antiquewhite">
+    <br><input type="text" name="achternaam" value="" placeholder="Achternaam" class="naam" style="background-color: rgb(35, 35, 47) ; border-radius: 8px; border:solid antiquewhite; color: antiquewhite" >
+    </p><br>
+    <p2 >
+    Postcode: <input type="text" name="postcode" value="" placeholder="Postcode" class="gegevens"><br>
+    Huisnummer: <input type="text" name="huisnummer" value="" class="gegevens"><br>
+    Straatnaam: <input type="text" name="straatnaam" value="" class="gegevens"><br>
+    Plaats: <input type="text" name="woonplaats" value="" class="gegevens"><br>
+    Telefoonnummer: <input type="text" name="telefoonnummer" value="" class="gegevens"><br>
+    Geboortedatum: <input type="text" name="gbdatum" value="" class="gegevens"><br>
+    <br><input type="submit" value="Verzenden"  style="background-color: #676EFF; border-radius: 8px; font-family: vortice-concept, sans-serif; font-weight: bold; color: antiquewhite">
+    </p2>
+</form>
 
 
 
