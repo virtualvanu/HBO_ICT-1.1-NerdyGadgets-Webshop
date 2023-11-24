@@ -102,18 +102,29 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         }
                         ?>
                         <!-- Voeg product aan winkelmandje toe -->
-                        <h2>Product <?php print($stockItemID) ?></h2>
                         <!-- formulier via POST en niet GET om te zorgen dat refresh van pagina niet het artikel onbedoeld toevoegt-->
                         <form method="post">
                             <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
+                            <input type="number" name="itemAmount" value="1" min="0">
                             <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
                         </form>
 
                         <?php
                         if (isset($_POST["submit"])) {              // zelfafhandelend formulier
                             $stockItemID = $_POST["stockItemID"];
-                            addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
-                            print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
+                            $itemAmount = $_POST['itemAmount'];
+                            $itemQuantity = $StockItem['QuantityOnHand'];
+                            $quantityInt = preg_replace('/[^0-9]/', '', $itemQuantity);
+
+                            if($itemAmount <= $quantityInt)
+                            {
+                                addProductToCart($stockItemID, $itemAmount);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
+                                print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
+                            }
+                            else
+                            {
+                                print("Helaas is het gekozen aantal momenteel niet in voorraad, kies een lager aantal of probeer het later opnieuw.");
+                            }
                         }
                         ?>
 
@@ -123,7 +134,6 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                 </div>
             </div>
         </div>
-
         <div id="StockItemDescription">
             <h3>Artikel beschrijving</h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
