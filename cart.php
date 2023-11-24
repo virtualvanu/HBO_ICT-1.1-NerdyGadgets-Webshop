@@ -19,13 +19,22 @@ $dbConnection = connectToDatabase();
         <th>Prijs</th>
         <th>Aantal</th>
     </tr>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Winkelwagen</title>
+        <style>
+            .CartImageStyle {
+                width: 75px;
+                height: 75px;
+                margin-left: 10px;
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+
     <?php
 
-    function HelloConflict()
-    {
-        print("I'm a merge conflict!");
-    }
-    
     $cart = getCart();
 
     if(isset($_POST['removeform']))
@@ -58,8 +67,11 @@ $dbConnection = connectToDatabase();
 
     $cartTotal = 0;
 
+
+
     foreach($cart as $itemId => $itemAmount)
     {
+
 
 
 
@@ -72,20 +84,31 @@ $dbConnection = connectToDatabase();
         $totalItemPrice = $itemPrice * $itemAmount;
         $cartTotal += $totalItemPrice;
 
-        $htmlstring = "<tr>
+
+    $images = getStockItemImage($itemId, $dbConnection);
+    $firstImagePath = $images[0]['ImagePath'];
+
+    for ($o = 0; $o < count($images); $o++) {
+    ?>
+        <td><img src='Public/StockItemIMG/<?php print $firstImagePath?>'  class='CartImageStyle' style='display: inline-block;'></td>
+        <?php
+    }
+        $htmlstring = "
+      <tr>
         <th>
-            <a href='view.php?id=$itemId'>$itemName</a>
+            <a href='view.php?id=$itemId' style=' margin-left: 10px'>$itemName</a>
         </th>
         <th>$totalItemPrice</th>
+        
         <th> 
             <form method='post' action='cart.php' name='modifyform' id='MODIFY'>
                 <input type='number' value='$itemAmount' min='0' onchange='this.form.submit()' name='modifiedAmount'>
                 <input type='hidden' name='modifiedproduct' value='$itemId'>
             </form>
         </th>
-           
+        
          <th>
-            <form method='post' action='cart.php'>
+            <form method='post' action='cart.php' style='display: inline-flex; position: relative;'>
                 <input type='hidden' name='product' value='$itemId'>
                 <input type='submit' name='removeform' id='REMOVE' value='X'>
             </form>
@@ -104,7 +127,7 @@ $dbConnection = connectToDatabase();
         </tr>
         ";
     print($totalPriceHTML);
-    
+
     //print_r($cart);
     //gegevens per artikelen in $cart (naam, prijs, etc.) uit database halen
     //totaal prijs berekenen
