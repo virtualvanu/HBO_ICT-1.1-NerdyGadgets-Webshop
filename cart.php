@@ -73,9 +73,15 @@ $dbConnection = connectToDatabase();
     {
 
 
+        $images = getStockItemImage($itemId, $dbConnection);
+        $firstImagePath = $images[0]['ImagePath'];
 
+        for ($o = 0; $o < count($images); $o++) {
+            ?>
+            <td><img src='Public/StockItemIMG/<?php print $firstImagePath?>'  class='CartImageStyle' style='display: inline-block;'></td>
+            <?php
 
-        $itemPrice = 9999;
+            $itemPrice = 9999;
         $itemName = "UNDEFINED";
         $itemInfo = getStockItem($itemId, $dbConnection);
 
@@ -85,13 +91,7 @@ $dbConnection = connectToDatabase();
         $cartTotal += $totalItemPrice;
 
 
-    $images = getStockItemImage($itemId, $dbConnection);
-    $firstImagePath = $images[0]['ImagePath'];
 
-    for ($o = 0; $o < count($images); $o++) {
-    ?>
-        <td><img src='Public/StockItemIMG/<?php print $firstImagePath?>'  class='CartImageStyle' style='display: inline-block;'></td>
-        <?php
     }
         $htmlstring = "
       <tr>
