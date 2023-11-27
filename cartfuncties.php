@@ -40,3 +40,15 @@ function removeProductFromCart($stockItemID)
 
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
+
+function getProductCartAmount($stockItemID)
+{
+    $cart = getCart();
+
+    if (array_key_exists($stockItemID, $cart))
+    {
+        return $cart[$stockItemID];
+    }
+
+    return 0;
+}

@@ -21,11 +21,6 @@ $dbConnection = connectToDatabase();
     </tr>
     <?php
 
-    function HelloConflict()
-    {
-        print("I'm a merge conflict!");
-    }
-    
     $cart = getCart();
 
     if(isset($_POST['removeform']))
@@ -48,12 +43,23 @@ $dbConnection = connectToDatabase();
         }
         else
         {
-            $cart[$item] = $newAmount;
+            $stockItem = getStockItem($item, $dbConnection);
+            $itemQuantity = $stockItem['QuantityOnHand'];
+            $quantityInt = preg_replace('/[^0-9]/', '', $itemQuantity);
+
+            if($newAmount <= $quantityInt)
+            {
+                $cart[$item] = $newAmount;
+            }
+            else
+            {
+                $cart[$item] = $quantityInt;
+                //print("Helaas is het gekozen aantal momenteel niet in voorraad, kies een lager aantal of probeer het later opnieuw.");
+            }
+
             saveCart($cart);
             $cart = getCart();
         }
-
-
     }
 
     $cartTotal = 0;

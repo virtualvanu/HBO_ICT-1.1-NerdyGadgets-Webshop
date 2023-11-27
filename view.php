@@ -111,14 +111,21 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 
                         <?php
                         if (isset($_POST["submit"])) {              // zelfafhandelend formulier
+                            //Fetch the item to add to cart
                             $stockItemID = $_POST["stockItemID"];
                             $itemAmount = $_POST['itemAmount'];
                             $itemQuantity = $StockItem['QuantityOnHand'];
                             $quantityInt = preg_replace('/[^0-9]/', '', $itemQuantity);
 
-                            if($itemAmount <= $quantityInt)
+                            //Get the current cart and compare the added amount to current stock
+                            $productCartAmount = getProductCartAmount($stockItemID);
+                            $amountDifference = intval($quantityInt) - intval($productCartAmount);
+                            //print($amountDifference); //Debug print
+
+                            //Add the product to cart if the current stock allows and the cart contains less than it already.
+                            if($itemAmount <= $quantityInt && $itemAmount <= $amountDifference)
                             {
-                                addProductToCart($stockItemID, $itemAmount);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
+                                addProductToCart($stockItemID, $itemAmount);         //Maak gebruik van geïmporteerde functie uit cartfuncties.php
                                 print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
                             }
                             else
