@@ -122,7 +122,7 @@ $dbConnection = connectToDatabase();
         <th>
             <a href='view.php?id=$itemId' style=' margin-left: 10px'>$itemName</a>
         </th>
-        <th>$totalItemPrice</th>
+        <th>€$totalItemPrice</th>
         
         <th> 
             <form method='post' action='cart.php' name='modifyform' id='MODIFY'>
@@ -183,7 +183,7 @@ $dbConnection = connectToDatabase();
     $totalPriceHTML = "
         <tr>
         <th>Totaal: </th>
-        <th>$cartTotal</th>
+        <th>€$cartTotal</th>
         </tr>
         ";
     print($totalPriceHTML);
