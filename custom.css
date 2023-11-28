@@ -1,0 +1,34 @@
+.modal-content {
+    background-color: rgb(35, 35, 47)
+
+}
+
+.btn btn-primary {
+    background-color:#676EFF;
+    border-radius: 8px;
+    color: white;
+    padding: 10px 20px;
+    font-family: vortice-concept, sans-serif;
+    font-weight: bold;
+
+}
+#confirm {
+    background-color:#676EFF;
+    border-radius: 8px;
+    color: white;
+    padding: 10px 15px;
+    font-family: vortice-concept, sans-serif;
+    font-weight: bold;
+    font-size: 10px;
+    width: 70%;
+}
+.NietVerwijderen{
+    background-color:#676EFF;
+    border-radius: 8px;
+    color: white;
+    padding: 10px 20px;
+    font-family: vortice-concept, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+
+}

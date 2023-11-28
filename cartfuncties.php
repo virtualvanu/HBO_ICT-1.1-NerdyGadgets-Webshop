@@ -30,6 +30,8 @@ function addProductToCart($stockItemID, $amount = 1)
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
 
+
+
 function removeProductFromCart($stockItemID)
 {
     $cart = getCart();
