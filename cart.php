@@ -5,47 +5,16 @@ $dbConnection = connectToDatabase();
 ?>
 <!DOCTYPE html>
 <html lang="nl">
+
 <style>
-    /* Style for the pop-up container */
-    .popup {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
-        display: none;
-    }
-
-    /* Style for the pop-up content */
-    .popup-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    .inhoud {
+        margin auto;
+        width: 500px;
         text-align: center;
-    }
-
-    /* Style for the close button */
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 20px;
-        cursor: pointer;
-    }
-
-    /* Style for the trigger button */
-    .openPopup {
-        display: block;
-        margin: 20px auto;
-        padding: 10px;
-        font-size: 16px;
-        cursor: pointer;
+        background-color: rgb(35, 35, 47);
+        border-radius: 8px;
+        border:solid antiquewhite;
+        color: antiquewhite;
     }
 </style>
 <head>
@@ -53,11 +22,13 @@ $dbConnection = connectToDatabase();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winkelwagen</title>
     <script src='Popup.js'></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="custom.css">
 </head>
-<body>
+<body >
 
-<h1>Inhoud Winkelwagen</h1>
-<table>
+<h1 >Inhoud Winkelwagen</h1>
+<table class="inhoud" style="border-radius: 8px">
     <tr>
         <th>Product</th>
         <th>Prijs</th>
@@ -68,27 +39,17 @@ $dbConnection = connectToDatabase();
 
     
     $cart = getCart();
-    $popUpHtml = " <!-- Trigger/Open The Modal -->
 
-
-<div id='popupContainer' class='popup'>
-    <!-- Pop-up content -->
-    <div class='popup-content'>
-        <span class='close' id='closePopup'>&times;</span>
-        <h2>Hello, this is a pop-up!</h2>
-        <p>This is some content inside the pop-up.</p>
-    </div>
-</div>";
 
 //    $popUpConfirm = 1;
-    if(isset($_POST['removeform']))
+    if(isset($_POST['confirmRemove']))
     {
-        print($popUpHtml);
-//        if($popUpConfirm == TRUE) {
-//            $removeID = $_POST['product'];
-//            removeProductFromCart($removeID);
-//            $cart = getCart();
-//        }
+        $removeID = $_POST['product'];
+            removeProductFromCart($removeID);
+            $cart = getCart();
+
+
+
     }
 
     if(isset($_POST['modifiedAmount']))
@@ -128,7 +89,9 @@ $dbConnection = connectToDatabase();
         $totalItemPrice = $itemPrice * $itemAmount;
         $cartTotal += $totalItemPrice;
 
-        $htmlstring = "<tr>
+        $htmlstring = "<table class='inhoud' >
+
+            <tr>
         <th>
             <a href='view.php?id=$itemId'>$itemName</a>
         </th>
@@ -141,12 +104,48 @@ $dbConnection = connectToDatabase();
         </th>
            
          <th>
-            <form method='post' action='cart.php'>
+         <form method='post' action='cart.php' id='form1'>
                 <input type='hidden' name='product' value='$itemId'>
-                <input type='submit' name='removeform' id='REMOVE' value='X' onclick=''>
-            </form>
+                </form>   
+         <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal' onclick='openConfirm()'>
+                  X
+                </button>
+                
+                <script type='text/javascript'>
+    function openConfirm() {
+        $('exampleModal').modal('toggle');
+        $('form1').submit();
+            }
+                </script>
+             <div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+    <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title' id='exampleModalLabel'>Wilt u dit product echt verwijderen uit uw winkelmand?</h5>
+                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <button type='button' class='NietVerwijderen' data-dismiss='modal'>Niet verwijderen</button>
+                <form method='post' action='cart.php'>
+                <input type='hidden' name='product' value='$itemId'>
+                <input type='submit' name='confirmRemove' id='confirm' value='Verwijderen uit winkelmand' onclick=''>
+                </form>
+               
+            </div>
+            
+                
+            
+        </div>
+    </div>
+</div> 
+                       
+            
          </th>
-        </tr>";
+        </tr>
+        </table>";
+
 
 
 
@@ -169,18 +168,8 @@ $dbConnection = connectToDatabase();
 <button style="background-color:#676EFF; border-radius: 8px; color: white; padding: 10px 20px; font-family: vortice-concept, sans-serif; font-weight: bold; position:relative; left:1300px; top:2px">BESTELLEN</button>
 </a>
 </div>
-<button id="openPopup" class="openPopup">Open Pop-up</button>
 
-<!-- The pop-up container -->
-<div id="popupContainer" class="popup">
-    <!-- Pop-up content -->
-    <div class="popup-content">
-        <span class="close" id="closePopup">&times;</span>
-        <h2>Hello, this is a pop-up!</h2>
-        <p>This is some content inside the pop-up.</p>
-    </div>
-</div>
 
-<script src="Popup.js"></script>
+
 </body>
 </html>
