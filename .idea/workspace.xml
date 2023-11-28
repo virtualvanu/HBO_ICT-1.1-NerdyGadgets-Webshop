@@ -19,6 +19,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -61,7 +62,8 @@
       <workItem from="1700649907811" duration="3033000" />
       <workItem from="1700653996128" duration="3340000" />
       <workItem from="1700817193709" duration="333000" />
-      <workItem from="1700817538538" duration="6907000" />
+      <workItem from="1700817538538" duration="7505000" />
+      <workItem from="1701164800695" duration="3023000" />
     </task>
     <servers />
   </component>

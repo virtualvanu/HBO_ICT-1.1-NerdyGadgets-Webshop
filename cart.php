@@ -15,10 +15,11 @@ $dbConnection = connectToDatabase();
 <h1>Inhoud Winkelwagen</h1>
 <table>
     <tr>
+        <th>Afbeelding</th>
         <th>Product</th>
         <th>Prijs</th>
         <th>Aantal</th>
-    </tr>
+        </tr>
 
     <head>
         <meta charset="UTF-8">
@@ -68,33 +69,25 @@ $dbConnection = connectToDatabase();
     $cartTotal = 0;
 
 
-
     foreach($cart as $itemId => $itemAmount)
     {
 
 
         $images = getStockItemImage($itemId, $dbConnection);
         $firstImagePath = $images[0]['ImagePath'];
-
-        for ($o = 0; $o < count($images); $o++) {
-            ?>
-            <td><img src='Public/StockItemIMG/<?php print $firstImagePath?>'  class='CartImageStyle' style='display: inline-block;'></td>
-            <?php
-
-            $itemPrice = 9999;
+        $itemPrice = 9999;
         $itemName = "UNDEFINED";
         $itemInfo = getStockItem($itemId, $dbConnection);
-
         $itemName = $itemInfo["StockItemName"];
         $itemPrice = round($itemInfo["SellPrice"], 2);
         $totalItemPrice = $itemPrice * $itemAmount;
         $cartTotal += $totalItemPrice;
 
-
-
-    }
         $htmlstring = "
       <tr>
+      <th>
+            <img src='Public/StockItemIMG/$firstImagePath'  class='CartImageStyle' style='display: inline-block;'>
+      </th>
         <th>
             <a href='view.php?id=$itemId' style=' margin-left: 10px'>$itemName</a>
         </th>
