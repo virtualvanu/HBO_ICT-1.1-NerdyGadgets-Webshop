@@ -19,6 +19,16 @@ $dbConnection = connectToDatabase();
         <th>Prijs</th>
         <th>Aantal</th>
     </tr>
+
+    <script>
+function checkInput() {
+    if (modifiedAmount < 0) {
+        $("#myform").submit();
+        return false;
+    }
+}
+</script>
+
     <?php
 
     $cart = getCart();
@@ -85,7 +95,7 @@ $dbConnection = connectToDatabase();
         <th>$totalItemPrice</th>
         <th> 
             <form method='post' action='cart.php' name='modifyform' id='MODIFY'>
-                <input type='number' value='$itemAmount' min='0' onchange='this.form.submit()' name='modifiedAmount'>
+                <input type='number' value='$itemAmount' min='0' onchange='checkInput()' name='modifiedAmount'>
                 <input type='hidden' name='modifiedproduct' value='$itemId'>
             </form>
         </th>
