@@ -105,7 +105,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         <!-- formulier via POST en niet GET om te zorgen dat refresh van pagina niet het artikel onbedoeld toevoegt-->
                         <form method="post">
                             <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
-                            <input type="number" name="itemAmount" value="1" min="0">
+                            <input type="number" name="itemAmount" value="1" min="1">
                             <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
                         </form>
 
