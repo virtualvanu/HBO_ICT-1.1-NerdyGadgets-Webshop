@@ -11,9 +11,12 @@ $AmountOfPages = 0;
 $queryBuildResult = "";
 
 
-if (isset($_GET['category_id'])) {
+if (isset($_GET['category_id']))
+{
     $CategoryID = $_GET['category_id'];
-} else {
+}
+else
+{
     $CategoryID = "";
 }
 if (isset($_GET['products_on_page'])) {
@@ -36,6 +39,7 @@ if (isset($_GET['page_number'])) {
 $SearchString = "";
 
 if (isset($_GET['search_string'])) {
+    $CategoryID = ""; //Set the category ID to an empty string to make sure all categories are searched.
     $SearchString = $_GET['search_string'];
 }
 if (isset($_GET['sort'])) {
@@ -81,13 +85,9 @@ if ($SearchString != "") {
         if ($i != 0) {
             $queryBuildResult .= "AND ";
         }
-        $queryBuildResult .= "SI.SearchDetails LIKE '%$searchValues[$i]%' ";
-    }
-    if ($queryBuildResult != "") {
+        $queryBuildResult .= "(SI.SearchDetails LIKE '%$searchValues[$i]%' ";
         $queryBuildResult .= " OR ";
-    }
-    if ($SearchString != "" || $SearchString != null) {
-        $queryBuildResult .= "SI.StockItemID ='$SearchString'";
+        $queryBuildResult .= "SI.StockItemID ='$SearchString')";
     }
 }
 
