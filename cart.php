@@ -34,7 +34,7 @@ $dbConnection = connectToDatabase();
         <th>Product</th>
         <th>Prijs</th>
         <th>Aantal</th>
-        </tr>
+    </tr>
 
     <head>
         <meta charset="UTF-8">
