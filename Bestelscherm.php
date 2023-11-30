@@ -45,7 +45,7 @@ $databaseConnection = connectToDatabase();
     Plaats: <input type="text" name="woonplaats" value="" class="gegevens"><br>
     Telefoonnummer: <input type="text" name="telefoonnummer" value="" class="gegevens"><br>
     Geboortedatum: <input type="text" name="gbdatum" value="" class="gegevens"><br>
-    <br><input type="submit" value="Verzenden"  style="background-color: #676EFF; border-radius: 8px; font-family: vortice-concept, sans-serif; font-weight: bold; color: antiquewhite">
+    <br><input type="submit" value="Bestellen"  style="background-color: #676EFF; border-radius: 8px; font-family: vortice-concept, sans-serif; font-weight: bold; color: antiquewhite">
     </p2>
 </form>
 
