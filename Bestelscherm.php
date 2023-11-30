@@ -39,12 +39,12 @@ $databaseConnection = connectToDatabase();
     <br><input type="text" name="achternaam" value="" placeholder="Achternaam" class="naam" style="background-color: rgb(35, 35, 47) ; border-radius: 8px; border:solid antiquewhite; color: antiquewhite" >
     </p><br>
     <p2 >
+    <input type="text" name="land" value="" placeholder="Land" class="gegevens"><br>
     <input type="text" name="postcode" value="" placeholder="Postcode" class="gegevens"><br>
-    Huisnummer: <input type="text" name="huisnummer" value="" class="gegevens"><br>
-    Straatnaam: <input type="text" name="straatnaam" value="" class="gegevens"><br>
-    Plaats: <input type="text" name="woonplaats" value="" class="gegevens"><br>
-    Telefoonnummer: <input type="text" name="telefoonnummer" value="" class="gegevens"><br>
-    Geboortedatum: <input type="text" name="gbdatum" value="" class="gegevens"><br>
+    <input type="text" name="huisnummer" value="" placeholder="Huisnummer" class="gegevens"><br>
+    <input type="text" name="straatnaam" value="" placeholder="Straatnaam" class="gegevens"><br>
+    <input type="text" name="woonplaats" value=""placeholder="Plaats" class="gegevens"><br>
+    <input type="text" name="telefoonnummer" placeholder="Emailadress" value="" class="gegevens"><br>
     <br><input type="submit" value="Verzenden"  style="background-color: #676EFF; border-radius: 8px; font-family: vortice-concept, sans-serif; font-weight: bold; color: antiquewhite">
     </p2>
 </form>
