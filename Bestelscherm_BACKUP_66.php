@@ -41,11 +41,20 @@ $databaseConnection = connectToDatabase();
     <p2 >
     <input type="text" name="land" value="" placeholder="Land" class="gegevens"><br>
     <input type="text" name="postcode" value="" placeholder="Postcode" class="gegevens"><br>
+<<<<<<< HEAD
     <input type="text" name="huisnummer" value="" placeholder="Huisnummer" class="gegevens"><br>
     <input type="text" name="straatnaam" value="" placeholder="Straatnaam" class="gegevens"><br>
     <input type="text" name="woonplaats" value=""placeholder="Plaats" class="gegevens"><br>
     <input type="text" name="telefoonnummer" placeholder="Emailadress" value="" class="gegevens"><br>
     <br><input type="submit" value="Verzenden"  style="background-color: #676EFF; border-radius: 8px; font-family: vortice-concept, sans-serif; font-weight: bold; color: antiquewhite">
+=======
+    Huisnummer: <input type="text" name="huisnummer" value="" class="gegevens"><br>
+    Straatnaam: <input type="text" name="straatnaam" value="" class="gegevens"><br>
+    Plaats: <input type="text" name="woonplaats" value="" class="gegevens"><br>
+    Telefoonnummer: <input type="text" name="telefoonnummer" value="" class="gegevens"><br>
+    Geboortedatum: <input type="text" name="gbdatum" value="" class="gegevens"><br>
+    <br><input type="submit" value="Bestellen"  style="background-color: #676EFF; border-radius: 8px; font-family: vortice-concept, sans-serif; font-weight: bold; color: antiquewhite">
+>>>>>>> 99a601f83fe8dc878efe6139a070264c3210292f
     </p2>
 </form>
 
