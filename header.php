@@ -54,7 +54,7 @@ $databaseConnection = connectToDatabase();
             <li>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
             </li>
-            <a href="Cart.php"><img src="Images/cart.png" width="60" height="60"></a>
+            <a href="Cart.php"><img src="Images/cart.png" width="45" height="45"></a>
         </ul>
 <!-- einde code voor US3 zoeken -->
     </div>
