@@ -178,8 +178,13 @@ function checkInput() {
         ?>
     </p>
     <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
-    $verzendkosten = 6.30;
-        print("€".$verzendkosten);
+        if(count($cart) != 0 && intval($cartTotal) < 100){
+            $verzendkosten = 6.3;
+            print("€".$verzendkosten);
+        }else{
+            $verzendkosten = 0;
+            print("€0.00");
+        }
         ?>
     </p>
     <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
