@@ -95,3 +95,50 @@ function getStockItemImage($id, $databaseConnection) {
 
     return $R;
 }
+function klantToevoegenInDatabase($database, $klant_naam, $email, $adres, $postcode, $woonplaats, $land)
+{
+    $query = "INSERT INTO klant (klantnaam, email,adres,postcode,woonplaats,land)
+VALUES ('$klant_naam','$email','$adres','$postcode','$woonplaats', '$land')";
+
+    mysqli_query($database, $query);
+
+
+}
+function getCustomerGegevens($databaseConnection, $email)
+{
+    $query =
+        "
+    SELECT *
+    FROM klant
+    WHERE email = '$email'";
+
+    $statement = mysqli_prepare($databaseConnection, $query);
+    mysqli_stmt_execute($statement);
+    $R = mysqli_stmt_get_result($statement);
+    $customer_cols = mysqli_fetch_all($R, MYSQLI_ASSOC);
+    if (empty($customer_cols)) {
+        return false;
+    }
+
+    return $customer_cols;
+
+
+}
+
+function orderToevoegen($database, $klant_id, $betaalWijze, $datum)
+{
+    $klant_id = intval($klant_id);
+    $query = "INSERT INTO bestelling (CustomerID,datum,betaal_wijze)
+              VALUES ('$klant_id','$datum','$betaalWijze') ";
+    if (mysqli_query($database, $query)) {
+        $order_Id = mysqli_insert_id($database);
+
+        return $order_Id;
+
+
+    } else {
+        print mysqli_error($database);
+
+    }
+
+}
