@@ -298,9 +298,9 @@ if (isset($amount)) {
                                 //Add the product to cart if the current stock allows and the cart contains less than it already.
                                 if($itemAmount <= $quantityInt && $itemAmount <= $amountDifference)
                                 {
-                                    addProductToCart($stockItemID, $itemAmount);         //Maak gebruik van geïmporteerde functie uit cartfuncties.php
                                     if($row['StockItemID'] == $stockItemID)
                                     {
+                                        addProductToCart($stockItemID, $itemAmount);         //Maak gebruik van geïmporteerde functie uit cartfuncties.php
                                         print("<p>Product toegevoegd aan <a href='cart.php'> winkelmandje!</a></p>");
                                     }
                                 }

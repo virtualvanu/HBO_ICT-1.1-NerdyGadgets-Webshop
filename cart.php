@@ -131,7 +131,7 @@ function checkInput() {
         
         <th> 
             <form method='post' action='cart.php' name='modifyform' id='MODIFY'>
-                <input type='number' value='$itemAmount' min='0' onchange='checkInput()' name='modifiedAmount'>
+                <input type='number' value='$itemAmount' min='0' onchange='checkInput()' name='modifiedAmount' required>
                 <input type='hidden' name='modifiedproduct' value='$itemId'>
             </form>
         </th>
