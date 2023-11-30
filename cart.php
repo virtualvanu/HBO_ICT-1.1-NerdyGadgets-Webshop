@@ -137,20 +137,20 @@ function checkInput() {
         </th>
         
          <th>
-            <form method='post' action='cart.php' id='form1 style='display: inline-flex; position: relative;'>
+            <form method='post' action='cart.php' id='form$itemId' style=display: inline-flex; position: relative;'>
                 <input type='hidden' name='product' value='$itemId'>
                 </form>   
-         <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal' onclick='openConfirm()'>
+         <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal$itemId' onclick='openConfirm()'>
                   X
                 </button>
                 
                 <script type='text/javascript'>
     function openConfirm() {
-        $('exampleModal').modal('toggle');
-        $('form1').submit();
+        $('exampleModal$itemId').modal('toggle');
+        $('form$itemId').submit();
             }
                 </script>
-             <div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+             <div class='modal fade' id='exampleModal$itemId' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
     <div class='modal-dialog' role='document'>
         <div class='modal-content'>
             <div class='modal-header'>
