@@ -126,11 +126,11 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             if($itemAmount <= $quantityInt && $itemAmount <= $amountDifference)
                             {
                                 addProductToCart($stockItemID, $itemAmount);         //Maak gebruik van geïmporteerde functie uit cartfuncties.php
-                                print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
+                                print("<p>Product toegevoegd aan <a href='cart.php'> winkelmandje!</a></p>");
                             }
                             else
                             {
-                                print("Helaas is het gekozen aantal momenteel niet in voorraad, kies een lager aantal of probeer het later opnieuw.");
+                                print("<p>Helaas is het gekozen aantal momenteel niet in voorraad, kies een lager aantal of probeer het later opnieuw.</p>");
                             }
                         }
                         ?>
