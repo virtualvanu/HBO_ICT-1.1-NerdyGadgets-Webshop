@@ -51,3 +51,5 @@ function getProductCartAmount($stockItemID)
 
     return 0;
 }
+
+?>
