@@ -40,4 +40,59 @@
 
 
 
+.CartTable{
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    margin-right: auto;
+    margin-left: 45px;
+    width: 500px;
+    text-align: center;
+    background-color: rgb(35, 35, 47);
+    border-radius: 8px;
+    border:solid antiquewhite;
+    color: antiquewhite;
+}
+
+.CartOverview{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    margin-right: 45px;
+    margin-left: auto;
+    width: 500px;
+    text-align: center;
+    background-color: rgb(35, 35, 47);
+    border-radius: 8px;
+    border:solid antiquewhite;
+    color: antiquewhite;
+}
+
+.CartOverviewHeader{
+    display: inline-block;
+    position: absolute;
+    margin-right: 45px;
+    margin-left: auto;
+    right: 325px;
+    top: 200px;
+}
+
+.CartImageStyle {
+    width: 150px;
+    height: 150px;
+    margin-left: 10px;
+    border-radius: 8px;
+}
+.CartOrderButton{
+    background-color:#676EFF;
+    border-radius: 8px;
+    color: white;
+    padding: 10px 20px;
+    font-family: vortice-concept, sans-serif;
+    font-weight: bold;
+    width: 200px;
+    height: 50px;
+    margin-bottom: 15px;
+    margin-top: 20px;
+
 }

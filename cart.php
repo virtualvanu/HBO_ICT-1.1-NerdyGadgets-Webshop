@@ -6,17 +6,6 @@ $dbConnection = connectToDatabase();
 <!DOCTYPE html>
 <html lang="nl">
 
-<style>
-    .inhoud {
-        margin auto;
-        width: 500px;
-        text-align: center;
-        background-color: rgb(35, 35, 47);
-        border-radius: 8px;
-        border:solid antiquewhite;
-        color: antiquewhite;
-    }
-</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,20 +13,11 @@ $dbConnection = connectToDatabase();
     <script src='Popup.js'></script>
 <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">-->
     <link rel="stylesheet" type="text/css" href="custom.css">
-
-    <style>
-        .CartImageStyle {
-            width: 75px;
-            height: 75px;
-            margin-left: 10px;
-            border-radius: 8px;
-        }
-    </style>
 </head>
 <body >
 
-<h1 >Inhoud Winkelwagen</h1>
-<table class="inhoud" style="border-radius: 8px">
+<h1 style="margin-left: 45px;">Inhoud Winkelwagen</h1>
+<table class="CartTable" style="width: 60%;">
     <tr>
         <th>Afbeelding</th>
         <th>Product</th>
@@ -118,39 +98,41 @@ function checkInput() {
         $itemPrice = round($itemInfo["SellPrice"], 2);
         $totalItemPrice = $itemPrice * $itemAmount;
         $cartTotal += $totalItemPrice;
+        $displayPrice = number_format($totalItemPrice, 2, '.', '.');
+        $displayCartTotalPrice = number_format($cartTotal, 2, '.', '.');
 
         $htmlstring = "
       <tr>
       <th>  
             <img src='Public/StockItemIMG/$firstImagePath'  class='CartImageStyle' style='display: inline-block;'>
       </th>
-        <th>
-            <a href='view.php?id=$itemId' style=' margin-left: 10px'>$itemName</a>
+        <th style='width: 50%;'>
+            <a href='view.php?id=$itemId' style=' margin-left: 10px; font-size: xx-large;'>$itemName</a>
         </th>
-        <th>€$totalItemPrice</th>
+        <th style='font-size: x-large;'>€$displayPrice</th>
         
         <th> 
             <form method='post' action='cart.php' name='modifyform' id='MODIFY'>
-                <input type='number' value='$itemAmount' min='0' onchange='checkInput()' name='modifiedAmount'>
+                <input type='number' value='$itemAmount' min='0' onchange='checkInput()' name='modifiedAmount' required style='width: 110px;'>
                 <input type='hidden' name='modifiedproduct' value='$itemId'>
             </form>
         </th>
         
          <th>
-            <form method='post' action='cart.php' id='form1 style='display: inline-flex; position: relative;'>
+            <form method='post' action='cart.php' id='form$itemId' style=display: inline-flex; position: relative;'>
                 <input type='hidden' name='product' value='$itemId'>
                 </form>   
-         <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal' onclick='openConfirm()'>
+         <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal$itemId' onclick='openConfirm()'>
                   X
                 </button>
                 
                 <script type='text/javascript'>
     function openConfirm() {
-        $('exampleModal').modal('toggle');
-        $('form1').submit();
+        $('exampleModal$itemId').modal('toggle');
+        $('form$itemId').submit();
             }
                 </script>
-             <div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+             <div class='modal fade' id='exampleModal$itemId' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
     <div class='modal-dialog' role='document'>
         <div class='modal-content'>
             <div class='modal-header'>
@@ -178,20 +160,42 @@ function checkInput() {
     }
 
     print("</table>");
-
-    $totalPriceHTML = "
-        <tr>
-        <th>Totaal: </th>
-        <th>€$cartTotal</th>
-        </tr>
-        ";
-    print($totalPriceHTML);
     ?>
 
 </table>
-<div id="afrekenen">
+<h1 class="CartOverviewHeader">Overzicht</h1>
+<br>
+<div id="afrekenen" class="CartOverview">
+    <p style="font-size: x-large; margin: 0">Artikelen: <?php
+        if(count($cart) > 0)
+        {
+            print("€$displayCartTotalPrice");
+        }
+        else
+        {
+            print("€0.00");
+        }
+        ?>
+    </p>
+    <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
+        print("€0.00");
+        ?>
+    </p>
+    <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
+    <p style="font-size: x-large; margin: 0">Totaal: <?php
+        if(count($cart) > 0)
+        {
+            print("€$displayCartTotalPrice");
+        }
+        else
+        {
+            print("€0.00");
+        }
+        ?>
+    </p>
+<br>
     <a href="http://localhost/nerdygadgets/Bestelscherm.php">
-        <button style="background-color:#676EFF; border-radius: 8px; color: white; padding: 10px 20px; font-family: vortice-concept, sans-serif; font-weight: bold; position:relative; left:1300px; top:2px">BESTELLEN</button>
+        <button class="CartOrderButton">BESTELLEN</button>
     </a>
 </div>
 </body>
