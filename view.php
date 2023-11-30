@@ -126,11 +126,11 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             if($itemAmount <= $quantityInt && $itemAmount <= $amountDifference)
                             {
                                 addProductToCart($stockItemID, $itemAmount);         //Maak gebruik van geïmporteerde functie uit cartfuncties.php
-                                print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
+                                print("<p>Product toegevoegd aan <a href='cart.php'> winkelmandje!</a></p>");
                             }
                             else
                             {
-                                print("Helaas is het gekozen aantal momenteel niet in voorraad, kies een lager aantal of probeer het later opnieuw.");
+                                print("<p>Helaas is het gekozen aantal momenteel niet in voorraad, kies een lager aantal of probeer het later opnieuw.</p>");
                             }
                         }
                         ?>
@@ -143,7 +143,13 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         </div>
         <div id="StockItemDescription">
             <h3>Artikel beschrijving</h3>
-            <p><?php print $StockItem['SearchDetails']; ?></p>
+            <p>
+                <?php //Remove the item's name from its description
+                $descriptionHTML = $StockItem['SearchDetails'];
+                $descriptionHTML = str_replace($StockItem['StockItemName'], "", $descriptionHTML);
+                print $descriptionHTML;
+                ?>
+            </p>
         </div>
         <div id="StockItemSpecifications">
             <h3>Artikel specificaties</h3>
@@ -153,13 +159,32 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                 <table>
                 <thead>
                 <th>Naam</th>
-                <th>Data</th>
+                <th><?php print($StockItem['StockItemName']); ?></th>
                 </thead>
                 <?php
                 foreach ($CustomFields as $SpecName => $SpecText) { ?>
                     <tr>
                         <td>
-                            <?php print $SpecName; ?>
+                            <?php
+                            switch ($SpecName) //Translate english database terms into user-friendly Dutch terms
+                            {
+                                case "CountryOfManufacture":
+                                    print("Land van fabricage");
+                                    break;
+                                case "Range":
+                                    print("Doelgroep");
+                                    break;
+                                case "ShelfLife":
+                                    print("Houdbaarheid");
+                                    break;
+                                case "MinimumAge":
+                                    print("Minimum leeftijd");
+                                    break;
+                                default:
+                                    print $SpecName;
+                            }
+
+                            ?>
                         </td>
                         <td>
                             <?php

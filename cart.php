@@ -22,8 +22,17 @@ $dbConnection = connectToDatabase();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winkelwagen</title>
     <script src='Popup.js'></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">-->
     <link rel="stylesheet" type="text/css" href="custom.css">
+
+    <style>
+        .CartImageStyle {
+            width: 75px;
+            height: 75px;
+            margin-left: 10px;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body >
 
@@ -34,20 +43,16 @@ $dbConnection = connectToDatabase();
         <th>Product</th>
         <th>Prijs</th>
         <th>Aantal</th>
-        </tr>
+    </tr>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Winkelwagen</title>
-        <style>
-            .CartImageStyle {
-                width: 75px;
-                height: 75px;
-                margin-left: 10px;
-                border-radius: 8px;
-            }
-        </style>
-    </head>
+    <script>
+function checkInput() {
+    if (modifiedAmount < 0) {
+        $("#myform").submit();
+        return false;
+    }
+}
+</script>
 
     <?php
 
@@ -116,17 +121,17 @@ $dbConnection = connectToDatabase();
 
         $htmlstring = "
       <tr>
-      <th>
+      <th>  
             <img src='Public/StockItemIMG/$firstImagePath'  class='CartImageStyle' style='display: inline-block;'>
       </th>
         <th>
             <a href='view.php?id=$itemId' style=' margin-left: 10px'>$itemName</a>
         </th>
-        <th>$totalItemPrice</th>
+        <th>€$totalItemPrice</th>
         
         <th> 
             <form method='post' action='cart.php' name='modifyform' id='MODIFY'>
-                <input type='number' value='$itemAmount' min='0' onchange='this.form.submit()' name='modifiedAmount'>
+                <input type='number' value='$itemAmount' min='0' onchange='checkInput()' name='modifiedAmount'>
                 <input type='hidden' name='modifiedproduct' value='$itemId'>
             </form>
         </th>
@@ -160,30 +165,24 @@ $dbConnection = connectToDatabase();
                 <input type='hidden' name='product' value='$itemId'>
                 <input type='submit' name='confirmRemove' id='confirm' value='Verwijderen uit winkelmand' onclick=''>
                 </form>
-               
             </div>
-            
-                
-            
         </div>
     </div>
 </div> 
                        
             
          </th>
-        </tr>
-        </table>";
-
-
-
+        </tr>";
 
         print($htmlstring);
     }
 
+    print("</table>");
+
     $totalPriceHTML = "
         <tr>
         <th>Totaal: </th>
-        <th>$cartTotal</th>
+        <th>€$cartTotal</th>
         </tr>
         ";
     print($totalPriceHTML);
@@ -192,11 +191,8 @@ $dbConnection = connectToDatabase();
 </table>
 <div id="afrekenen">
     <a href="http://localhost/nerdygadgets/Bestelscherm.php">
-<button style="background-color:#676EFF; border-radius: 8px; color: white; padding: 10px 20px; font-family: vortice-concept, sans-serif; font-weight: bold; position:relative; left:1300px; top:2px">BESTELLEN</button>
-</a>
+        <button style="background-color:#676EFF; border-radius: 8px; color: white; padding: 10px 20px; font-family: vortice-concept, sans-serif; font-weight: bold; position:relative; left:1300px; top:2px">BESTELLEN</button>
+    </a>
 </div>
-
-
-
 </body>
 </html>

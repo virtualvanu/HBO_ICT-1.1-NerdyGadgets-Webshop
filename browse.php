@@ -11,9 +11,12 @@ $AmountOfPages = 0;
 $queryBuildResult = "";
 
 
-if (isset($_GET['category_id'])) {
+if (isset($_GET['category_id']))
+{
     $CategoryID = $_GET['category_id'];
-} else {
+}
+else
+{
     $CategoryID = "";
 }
 if (isset($_GET['products_on_page'])) {
@@ -36,6 +39,7 @@ if (isset($_GET['page_number'])) {
 $SearchString = "";
 
 if (isset($_GET['search_string'])) {
+    $CategoryID = ""; //Set the category ID to an empty string to make sure all categories are searched.
     $SearchString = $_GET['search_string'];
 }
 if (isset($_GET['sort'])) {
@@ -81,13 +85,9 @@ if ($SearchString != "") {
         if ($i != 0) {
             $queryBuildResult .= "AND ";
         }
-        $queryBuildResult .= "SI.SearchDetails LIKE '%$searchValues[$i]%' ";
-    }
-    if ($queryBuildResult != "") {
+        $queryBuildResult .= "(SI.SearchDetails LIKE '%$searchValues[$i]%' ";
         $queryBuildResult .= " OR ";
-    }
-    if ($SearchString != "" || $SearchString != null) {
-        $queryBuildResult .= "SI.StockItemID ='$SearchString'";
+        $queryBuildResult .= "SI.StockItemID ='$SearchString')";
     }
 }
 
@@ -268,11 +268,52 @@ if (isset($amount)) {
                              style="background-image: url('<?php print "Public/StockGroupIMG/" . $row['BackupImagePath'] ?>'); background-size: cover;"></div>
                     <?php }
                     ?>
-
+    </a>
                     <div id="StockItemFrameRight">
                         <div class="CenterPriceLeftChild">
                             <h1 class="StockItemPriceText"><?php print sprintf(" %0.2f", berekenVerkoopPrijs($row["RecommendedRetailPrice"], $row["TaxRate"])); ?></h1>
                             <h6>Inclusief BTW </h6>
+
+                            <!-- Voeg product aan winkelmandje toe -->
+                            <!-- formulier via POST en niet GET om te zorgen dat refresh van pagina niet het artikel onbedoeld toevoegt-->
+                            <form method="post">
+                                <input type="number" name="stockItemID" value="<?php print($row['StockItemID']) ?>" hidden>
+                                <input type="number" name="itemAmount" value="1" min="1">
+                                <input type="submit" name="submit" value="Voeg toe aan winkelmandje" class="btn-primary">
+                            </form>
+
+                            <?php
+                            if (isset($_POST["submit"])) {              // zelfafhandelend formulier
+                                //Fetch the item to add to cart
+                                $stockItemID = $_POST["stockItemID"];
+                                $itemAmount = $_POST['itemAmount'];
+                                $itemQuantity = $row['QuantityOnHand'];
+                                $quantityInt = preg_replace('/[^0-9]/', '', $itemQuantity);
+
+                                //Get the current cart and compare the added amount to current stock
+                                $productCartAmount = getProductCartAmount($stockItemID);
+                                $amountDifference = intval($quantityInt) - intval($productCartAmount);
+                                //print($amountDifference); //Debug print
+
+                                //Add the product to cart if the current stock allows and the cart contains less than it already.
+                                if($itemAmount <= $quantityInt && $itemAmount <= $amountDifference)
+                                {
+                                    addProductToCart($stockItemID, $itemAmount);         //Maak gebruik van geïmporteerde functie uit cartfuncties.php
+                                    if($row['StockItemID'] == $stockItemID)
+                                    {
+                                        print("<p>Product toegevoegd aan <a href='cart.php'> winkelmandje!</a></p>");
+                                    }
+                                }
+                                else
+                                {
+                                    if($row['StockItemID'] == $stockItemID)
+                                    {
+                                        print("<p>Helaas is het gekozen aantal momenteel niet in voorraad, kies een lager aantal of probeer het later opnieuw.</p>");
+                                    }
+                                }
+                            }
+                            ?>
+
                         </div>
                     </div>
                     <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
@@ -281,10 +322,9 @@ if (isset($amount)) {
                     <h4 class="ItemQuantity"><?php print getVoorraadTekst($row["QuantityOnHand"]); ?></h4>
                 </div>
             <!--  coderegel 2 van User story: bekijken producten  -->
-            </a>
 
 
-            <!--  einde coderegel 2 van User story: bekijken producten  -->
+            <!--  einde coderegel 2 van User story: bekijken producten.  -->
         <?php } ?>
 
         <form id="PageSelector">

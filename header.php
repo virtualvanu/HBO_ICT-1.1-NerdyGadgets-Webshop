@@ -1,6 +1,6 @@
 <!-- de inhoud van dit bestand wordt bovenaan elke pagina geplaatst -->
 <?php
-//session_start(); Tijdelijk verwijderd voor implementatie winkelmand
+session_start();
 include "database.php";
 $databaseConnection = connectToDatabase();
 ?>
@@ -20,6 +20,7 @@ $databaseConnection = connectToDatabase();
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
+    <link rel="stylesheet" type="text/css" href="custom.css">
 </head>
 <body>
 <div class="Background">
@@ -53,7 +54,7 @@ $databaseConnection = connectToDatabase();
             <li>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
             </li>
-            <a href="Cart.php"><img src="Images/WhiteShoppingCart.svg" width="80" height="100"></a>
+            <a href="Cart.php"><img src="Images/cart.png" width="60" height="60"></a>
         </ul>
 <!-- einde code voor US3 zoeken -->
     </div>
