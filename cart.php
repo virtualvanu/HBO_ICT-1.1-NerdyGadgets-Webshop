@@ -166,10 +166,33 @@ function checkInput() {
 <h1 class="CartOverviewHeader">Overzicht</h1>
 <br>
 <div id="afrekenen" class="CartOverview">
-    <p style="font-size: x-large; margin: 0">Artikelen: <?php print("€$displayCartTotalPrice")?></p>
-    <p style="font-size: x-large; margin: 0">Verzendkosten: <?php print("€0.00")?></p>
+    <p style="font-size: x-large; margin: 0">Artikelen: <?php
+        if(count($cart) > 0)
+        {
+            print("€$displayCartTotalPrice");
+        }
+        else
+        {
+            print("€0.00");
+        }
+        ?>
+    </p>
+    <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
+        print("€0.00");
+        ?>
+    </p>
     <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
-    <p style="font-size: x-large; margin: 0">Totaal: <?php print("€$displayCartTotalPrice")?></p>
+    <p style="font-size: x-large; margin: 0">Totaal: <?php
+        if(count($cart) > 0)
+        {
+            print("€$displayCartTotalPrice");
+        }
+        else
+        {
+            print("€0.00");
+        }
+        ?>
+    </p>
 <br>
     <a href="http://localhost/nerdygadgets/Bestelscherm.php">
         <button class="CartOrderButton">BESTELLEN</button>
