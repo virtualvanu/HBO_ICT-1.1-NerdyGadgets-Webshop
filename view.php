@@ -2,6 +2,7 @@
 <?php
 include __DIR__ . "/header.php";
 
+
 $StockItem = getStockItem($_GET['id'], $databaseConnection);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 ?>
@@ -90,9 +91,10 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         <head>
                             <meta charset="UTF-8">
                             <title>Artikelpagina (geef ?id=.. mee)</title>
+                            <link rel="stylesheet" href="custom.css"> <!-- to fix add to cart button jumping -->
                         </head>
                         <body>
-
+                        
                         <?php
                         //?id=1 handmatig meegeven via de URL (gebeurt normaal gesproken als je via overzicht op artikelpagina terechtkomt)
                         if (isset($_GET["id"])) {
@@ -106,9 +108,11 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         <form method="post">
                             <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
                             <input type="number" name="itemAmount" value="1" min="1">
-                            <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
+                            <input type="submit" name="submit" value="Voeg toe aan winkelmand">
+                            <div class="message">
                         </form>
 
+                        
                         <?php
                         if (isset($_POST["submit"])) {              // zelfafhandelend formulier
                             //Fetch the item to add to cart
