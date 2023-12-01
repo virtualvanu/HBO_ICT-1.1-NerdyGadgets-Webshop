@@ -1,6 +1,7 @@
 <!-- dit bestand bevat alle code die verbinding maakt met de database -->
 <?php
 
+
 function connectToDatabase() {
     $Connection = null;
 
@@ -95,13 +96,12 @@ function getStockItemImage($id, $databaseConnection) {
 
     return $R;
 }
-function klantToevoegenInDatabase($database, $klant_naam, $email, $adres, $postcode, $woonplaats, $land)
+function klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $adres, $postcode, $woonplaats, $land)
 {
     $query = "INSERT INTO klant (klantnaam, email,adres,postcode,woonplaats,land)
 VALUES ('$klant_naam','$email','$adres','$postcode','$woonplaats', '$land')";
-
-    mysqli_query($database, $query);
-
+    $statement = mysqli_prepare($databaseConnection, $query);
+    mysqli_stmt_execute($statement);
 
 }
 function getCustomerGegevens($databaseConnection, $email)
@@ -112,16 +112,28 @@ function getCustomerGegevens($databaseConnection, $email)
     FROM klant
     WHERE email = '$email'";
 
+    //    mysqli_query($database, $query);
+    $result = mysqli_query($databaseConnection, $query);
+    $markerData = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $klant_naam = $markerData['klantnaam'];
+    $email = $markerData['email'];
+    $adres = $markerData['adres'];
+    $postcode = $markerData['postcode'];
+    $woonplaats = $markerData['woonplaats'];
+    $land = $markerData['land'];
+
+
+
+}
+
+function controlerenGegevens($databaseConnection, $email){
+    $query ="
+    SELECT email
+    FROM klant
+    WHERE email = '$email'
+    ";
     $statement = mysqli_prepare($databaseConnection, $query);
     mysqli_stmt_execute($statement);
-    $R = mysqli_stmt_get_result($statement);
-    $customer_cols = mysqli_fetch_all($R, MYSQLI_ASSOC);
-    if (empty($customer_cols)) {
-        return false;
-    }
-
-    return $customer_cols;
-
 
 }
 
