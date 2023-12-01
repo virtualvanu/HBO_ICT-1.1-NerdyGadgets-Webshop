@@ -109,9 +109,8 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
                             <input type="number" name="itemAmount" value="1" min="1">
                             <input type="submit" name="submit" value="Voeg toe aan winkelmand">
-                            <div class="message">
                         </form>
-
+                        <div class="message"> <!-- reserveert ruimte voor added to cart message onder button -->
                         
                         <?php
                         if (isset($_POST["submit"])) {              // zelfafhandelend formulier
@@ -145,7 +144,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                 </div>
             </div>
         </div>
-        <div id="StockItemDescription">
+        <div id="StockItemDescription"style="margin-top: 250px float-left: 10px"></div>>
             <h3>Artikel beschrijving</h3>
             <p>
                 <?php //Remove the item's name from its description

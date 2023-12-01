@@ -179,9 +179,9 @@ function checkInput() {
     </p>
         <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
         $verzendkosten = 0;
-        if (is_numeric($cartTotal) && $cartTotal < 100) {
+        if (is_numeric($cartTotal) && $cartTotal < 100 && $cartTotal != 0) {
             $verzendkosten = 6.3;
-            print("€".$verzendkosten);
+            print("€".number_format($verzendkosten, 2, '.', '.'));
         } else {
             print("€0.00");
         }
