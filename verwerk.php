@@ -14,13 +14,14 @@ include "database.php";
     $klant_naam = $voornaam . $tussenVoegsel . $achternaam;
     $hetadres = $straat_naam . " " . $huis_nummer;
 
-if (getCustomerGegevens($database, $email)){
-
-}
-else {
-    klantToevoegenInDatabase($database, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
-
-}
+//if (getCustomerGegevens($database, $email)){
+//
+//}
+//else {
+//    klantToevoegenInDatabase($database, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
+//
+//}
+klantToevoegenInDatabase($database, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
 //    return 'bestelscherm.php';
 ?>
 

@@ -55,7 +55,9 @@ $databaseConnection = connectToDatabase();
     <input type="text" name="emailadress" placeholder="Emailadress" value="" class="gegevens" required><br>
     <input type="submit" value="Afrekenen"  style="background-color: #676EFF; width: 95.5%;border-radius: 8px; font-family: vortice-concept, sans-serif; font-weight: bold; color: antiquewhite">
     </p2>
+
 </form>
+<!--
 <div style="float: left; margin-left: 40px; width: 40%">
     <h style="font-size: 20px;">Voor als u al eerder bij ons besteld hebt:</h><br>
     <form method="POST" action="verwerk.php">
@@ -63,6 +65,6 @@ $databaseConnection = connectToDatabase();
     <input type="submit" value="Afrekenen"  style="background-color: #676EFF; width: 95.5%;border-radius: 8px; font-family: vortice-concept, sans-serif; font-weight: bold; color: antiquewhite">
     </form>
 </div>
-
+-->
 </body>
 </html>
