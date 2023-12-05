@@ -14,6 +14,8 @@ include "cartfuncties.php";
     $land = "Nederland";
     $klant_naam = $voornaam . " ". $tussenVoegsel . $achternaam;
     $hetadres = $straat_naam . " " . $huis_nummer;
+
+    emptyCart(); //TEMPORARY Delete the contents of your cart when this page is loaded. TODO: Implement this to happen after payment.
 //    $email2 = $_POST["emailadress2"];
 //
 //if ($email2 == controlerenGegevens($databaseConnection, $email2)){

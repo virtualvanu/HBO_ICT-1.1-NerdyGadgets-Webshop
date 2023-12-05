@@ -21,7 +21,8 @@ $dbConnection = connectToDatabase();
     <tr>
         <th>Afbeelding</th>
         <th>Product</th>
-        <th>Prijs</th>
+        <th>Stukprijs</th>
+        <th>Subtotaal</th>
         <th>Aantal</th>
     </tr>
 
@@ -82,9 +83,6 @@ function checkInput() {
         }
     }
 
-    $cartTotal = 0;
-
-
     foreach($cart as $itemId => $itemAmount)
     {
 
@@ -97,9 +95,10 @@ function checkInput() {
         $itemName = $itemInfo["StockItemName"];
         $itemPrice = round($itemInfo["SellPrice"], 2);
         $totalItemPrice = $itemPrice * $itemAmount;
-        $cartTotal += $totalItemPrice;
+
+        $displayItemPrice = number_format($itemPrice, 2, '.', '.');
         $displayPrice = number_format($totalItemPrice, 2, '.', '.');
-        $displayCartTotalPrice = number_format($cartTotal, 2, '.', '.');
+        $displayCartTotalPrice = number_format(getCartTotal($dbConnection), 2, '.', '.');
 
         $htmlstring = "
       <tr>
@@ -107,13 +106,14 @@ function checkInput() {
             <img src='Public/StockItemIMG/$firstImagePath'  class='CartImageStyle' style='display: inline-block;'>
       </th>
         <th style='width: 50%;'>
-            <a href='view.php?id=$itemId' style=' margin-left: 10px; font-size: xx-large;'>$itemName</a>
+            <a href='view.php?id=$itemId' style=' margin-left: 10px; font-size: 22px;'>$itemName</a>
         </th>
+        <th style='font-size: x-large;'>€$displayItemPrice</th>
         <th style='font-size: x-large;'>€$displayPrice</th>
         
         <th> 
             <form method='post' action='cart.php' name='modifyform' id='MODIFY'>
-                <input type='number' value='$itemAmount' min='0' onchange='checkInput()' name='modifiedAmount' required style='width: 110px;'>
+                <input type='number' value='$itemAmount' min='1' onchange='checkInput()' name='modifiedAmount' required style='width: 110px;'>
                 <input type='hidden' name='modifiedproduct' value='$itemId'>
             </form>
         </th>
@@ -186,8 +186,10 @@ function checkInput() {
     <p style="font-size: x-large; margin: 0">Totaal: <?php
         if(count($cart) > 0)
         {
-
-            print("€". ($displayCartTotalPrice + $verzendkosten));
+            $cartTotal = getCartTotal($dbConnection);
+            $orderTotal = $cartTotal + $verzendkosten;
+            $displayOrderTotal = number_format($orderTotal, 2, '.', '.');
+            print("€". ($displayOrderTotal));
         }
         else
         {
