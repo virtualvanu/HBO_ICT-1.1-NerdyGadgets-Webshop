@@ -15,7 +15,21 @@ include "cartfuncties.php";
     $klant_naam = $voornaam . " ". $tussenVoegsel . $achternaam;
     $hetadres = $straat_naam . " " . $huis_nummer;
 
-    emptyCart(); //TEMPORARY Delete the contents of your cart when this page is loaded. TODO: Implement this to happen after payment.
+     finishOrder($databaseConnection); //TEMPORARY Delete the contents of your cart when this page is loaded. TODO: Implement this to happen after payment.
+
+function finishOrder($databaseConnection)
+{
+    $cart = getCart();
+
+    foreach ($cart as $itemId => $itemAmount)
+    {
+        $Query = "CALL RemoveProductQuantity($itemId, $itemAmount);";
+        $Statement = mysqli_prepare($databaseConnection, $Query);
+        mysqli_stmt_execute($Statement);
+        $Result = mysqli_stmt_get_result($Statement);
+    }
+    emptyCart();
+}
 //    $email2 = $_POST["emailadress2"];
 //
 //if ($email2 == controlerenGegevens($databaseConnection, $email2)){
