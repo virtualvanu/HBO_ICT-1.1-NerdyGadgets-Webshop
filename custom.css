@@ -96,3 +96,7 @@
     margin-top: 20px;
 
 }
+/* Saves a space under add to cart button for message "added product to cart" */
+.message { 
+    min-height: 50px;
+}

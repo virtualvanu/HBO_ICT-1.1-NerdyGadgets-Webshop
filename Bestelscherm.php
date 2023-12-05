@@ -23,7 +23,7 @@ include "header.php";
 <head class="head">
     <meta charset="UTF-8">
     <title>Bestelscherm</title>
-<!--    <img src="Images/nerdygadgets.png" alt="logo" width="250" height="140">-->
+    <a href="index.php"><img src="Images/nerdygadgets.png" alt="logo" width="250" height="140"></a>
     <h1 class="head">
 <!--    <b style="font-size: 50px; position: relative;top: 15px; left:300px">Bestelscherm</b>-->
     </h1>

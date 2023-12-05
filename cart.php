@@ -177,23 +177,29 @@ function checkInput() {
         }
         ?>
     </p>
-    <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
-    $verzendkosten = 6.30;
-        print("€".$verzendkosten);
+        <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
+        $verzendkosten = 0;
+        if (is_numeric($cartTotal) && $cartTotal < 100 && $cartTotal != 0) {
+            $verzendkosten = 6.3;
+            print("€".number_format($verzendkosten, 2, '.', '.'));
+        } else {
+            print("€0.00");
+        }
         ?>
     </p>
     <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
     <p style="font-size: x-large; margin: 0">Totaal: <?php
+        $displayCartTotalPriceIncldeliveryCost = ($cartTotal + $verzendkosten);
         if(count($cart) > 0)
         {
-
-            print("€". ($displayCartTotalPrice + $verzendkosten));
+            print("€". ($displayCartTotalPriceIncldeliveryCost));
         }
         else
         {
             print("€0.00");
         }
         ?>
+
     </p>
 <br>
     <a href="http://localhost/nerdygadgets/Bestelscherm.php">
