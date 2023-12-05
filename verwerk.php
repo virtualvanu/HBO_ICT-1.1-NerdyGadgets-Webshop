@@ -3,17 +3,19 @@ include "header.php";
 include "cartfuncties.php";
 
     $databaseConnection = connectToDatabase();
-    $voornaam = $_POST["voornaam"];
+    $voornaam = "Jelmer";
     $tussenVoegsel = (empty($_POST["tussenvoegsel"])) ? " " : $_POST["tussenvoegsel"];
-    $achternaam = $_POST["achternaam"];
-    $postcode = $_POST["postcode"];
-    $email = $_POST["emailadress"];
-    $huis_nummer = $_POST["huisnummer"];
-    $straat_naam = $_POST["straatnaam"];
-    $woonplaats = $_POST["woonplaats"];
-    $land = $_POST["land"];
+    $achternaam = "Kanis";
+    $postcode = "7463PK";
+    $email = "12345@info.nl";
+    $huis_nummer = "4";
+    $straat_naam = "Twijnspil";
+    $woonplaats = "Wierden";
+    $land = "Nederland";
     $klant_naam = $voornaam . " ". $tussenVoegsel . $achternaam;
     $hetadres = $straat_naam . " " . $huis_nummer;
+
+    emptyCart(); //TEMPORARY Delete the contents of your cart when this page is loaded. TODO: Implement this to happen after payment.
 //    $email2 = $_POST["emailadress2"];
 //
 //if ($email2 == controlerenGegevens($databaseConnection, $email2)){
@@ -25,17 +27,50 @@ include "cartfuncties.php";
 //else {
 //    klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
 //}
-klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
+//klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
 ?>
 
 
 <html>
 <lang nl></lang>
  <body>
- <h1> <?php print($klant_naam) ?>, u bestelling is geplaatst</h1>
- <h1 class="CartOverviewHeader">Overzicht</h1>
+ <h1> <?php print($klant_naam) ?>, u kunt nu uw bestelling afronden</h1>
+ <div id="bestelldiv" class="center">
+     <div id="bestellen">
+         <p>Controleer uw besteladres.</p>
+
+         <div id="anderadres" class="border">
+             <div id="afleveradres">
+                 <p>Afleveradres: <br>Naam: <?php print $klant_naam ?> <br> Adres: <?php print $hetadres ?> <br>
+                     Postcode: <?php print $postcode ?> <br> Woonplaats: <?php print $woonplaats ?></p>
+             </div>
+         </div>
+         <br>
+         <h4 class="fa fa-bank"> IDeal betalen:</h4>
+         <br>
+         <div id="banken">
+             <form action="#" method="post">
+                 <select name="banken" id="banken">
+                     <option value="ing">ING</option>
+                     <option value="rabobank">Rabobank</option>
+                     <option value="sns">SNS</option>
+                     <option value="abnamro">ABN AMRO</option>
+                     <option value="bunq">bunq</option>
+                     <option value="knab">Knab</option>
+                     <option value="asnbank">ASN Bank</option>
+                     <option value="regiobank">RegioBank</option>
+                     <option value="revolut">Revolut</option>
+                     <option value="triodosbank">Triodos Bank</option>
+                     <option value="vanlanschot">Van Lanschot</option>
+                 </select>
+
+
+         </div>
+         <br><br>
+     </div>
+<!-- <h1 class="CartOverviewHeader">Overzicht</h1>-->
  <br>
- <div id="afrekenen" class="CartOverview">
+ <div id="TotaalPrijsVerwerk" class="CartOverview">
      <p style="font-size: x-large; margin: 0">Artikelen: <?php
          $cartTotal = 0;
         $cart = getCart();

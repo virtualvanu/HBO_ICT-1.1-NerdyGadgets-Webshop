@@ -17,16 +17,17 @@
     border-radius: 8px;
     color: white;
     padding: 10px 15px;
+    margin-top: 5px;
     font-family: vortice-concept, sans-serif;
     font-weight: bold;
     font-size: 14px;
-    width: 70%;
+    width: 45%;
 }
 .NietVerwijderen{
     background-color:#676EFF;
     border-radius: 8px;
     color: white;
-    padding: 10px 20px;
+    padding: 20px 20px;
     font-family: vortice-concept, sans-serif;
     font-weight: bold;
     font-size: 14px;
@@ -58,9 +59,10 @@
     display: inline-block;
     position: absolute;
     right: 0;
+    top: 256px;
     margin-right: 45px;
     margin-left: auto;
-    width: 500px;
+    width: 400px;
     text-align: center;
     background-color: rgb(35, 35, 47);
     border-radius: 8px;
@@ -71,7 +73,7 @@
 .CartOverviewHeader{
     display: inline-block;
     position: absolute;
-    margin-right: 45px;
+    margin-right: -50px;
     margin-left: auto;
     right: 325px;
     top: 200px;
@@ -112,5 +114,31 @@
     height: 50px;
     margin-bottom: 15px;
     margin-top: 20px;
+}
 
+.fa fa-bank{
+    width: 50%;
+    float: left;
+}
+.banken{
+    width: 50%;
+    float: left;
+}
+
+#TotaalPrijsVerwerk{
+    float: left
+}
+
+.checkBox{
+
+    width: 50%;
+}
+
+.gegevens {
+    background-color: rgb(35, 35, 47) ;
+    border-radius: 8px;
+    border:solid antiquewhite;
+    color: antiquewhite;
+    margin-bottom: 10px;
+    width: 95.5%;
 }
