@@ -85,7 +85,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             </div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
-                    <div class="CenterPriceLeftChild">
+                    <div class="CenterPriceLeftChild CenterPriceLeftView">
                         <p class="StockItemPriceText"><b>
                                 <?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?>
                             </b></p>
@@ -151,7 +151,8 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                 </div>
             </div>
         </div>
-        <div id="StockItemDescription">
+    </div>
+    <div id="StockItemDescription">
             <h3>Artikel beschrijving</h3>
             <p>
 
@@ -162,7 +163,6 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     ?>
             </p>
         </div>
-    </div>
     <div id="StockItemSpecifications">
         <h3>Artikel specificaties</h3>
         <?php

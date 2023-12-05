@@ -198,6 +198,9 @@ ul#ul-class-navigation li {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+.CenterPriceLeftView {
+    top: 95%;
+}
 #StockItemDescription {
     background-color: rgba(35, 40, 47, 0.8);
     width: 49%;
