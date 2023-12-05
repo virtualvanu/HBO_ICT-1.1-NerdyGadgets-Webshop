@@ -203,7 +203,15 @@ function checkInput() {
     </p>
 <br>
     <a href="http://localhost/nerdygadgets/Bestelscherm.php">
-        <button class="CartOrderButton">BESTELLEN</button>
+    <?php
+        
+        if(count(getCart()) <= 0){
+            print ('<button class="CartOrderButtonDisabled" disabled>BESTELLEN</button>');
+        }else{
+            print ('<button class="CartOrderButton">BESTELLEN</button>');
+        }
+
+        ?>
     </a>
 </div>
 </body>

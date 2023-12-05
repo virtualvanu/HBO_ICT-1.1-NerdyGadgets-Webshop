@@ -100,3 +100,17 @@
 .message { 
     min-height: 50px;
 }
+
+.CartOrderButtonDisabled{
+    background-color:#65656a;
+    border-radius: 8px;
+    color: rgb(247 247 247 / 20%);
+    padding: 10px 20px;
+    font-family: vortice-concept, sans-serif;
+    font-weight: bold;
+    width: 200px;
+    height: 50px;
+    margin-bottom: 15px;
+    margin-top: 20px;
+
+}
