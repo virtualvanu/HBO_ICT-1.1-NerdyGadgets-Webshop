@@ -23,10 +23,16 @@ function finishOrder($databaseConnection)
 
     foreach ($cart as $itemId => $itemAmount)
     {
-        $Query = "CALL RemoveProductQuantity($itemId, $itemAmount);";
-        $Statement = mysqli_prepare($databaseConnection, $Query);
-        mysqli_stmt_execute($Statement);
-        $Result = mysqli_stmt_get_result($Statement);
+        $StockItem = getStockItem($itemId, $databaseConnection);
+        $dbQuantity = $StockItem['QuantityOnHand'];
+        if($dbQuantity > 0 && $itemAmount <= $dbQuantity)
+        {
+            $Query = "CALL RemoveProductQuantity($itemId, $itemAmount);";
+            $Statement = mysqli_prepare($databaseConnection, $Query);
+            mysqli_stmt_execute($Statement);
+            $Result = mysqli_stmt_get_result($Statement);
+        }
+
     }
     emptyCart();
 }
