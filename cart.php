@@ -178,14 +178,16 @@ function checkInput() {
         ?>
     </p>
     <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
-        print("€0.00");
+    $verzendkosten = 6.30;
+        print("€".$verzendkosten);
         ?>
     </p>
     <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
     <p style="font-size: x-large; margin: 0">Totaal: <?php
         if(count($cart) > 0)
         {
-            print("€$displayCartTotalPrice");
+
+            print("€". ($displayCartTotalPrice + $verzendkosten));
         }
         else
         {
