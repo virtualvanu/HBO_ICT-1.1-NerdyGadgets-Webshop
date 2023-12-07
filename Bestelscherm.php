@@ -11,8 +11,8 @@ include "header.php";
 </style>
 <head class="head">
     <meta charset="UTF-8">
-    <title>Registreren</title>
-
+    <title>Bestelscherm</title>
+    <a href="index.php"><img src="Images/nerdygadgets.png" alt="logo" width="250" height="140"></a>
     <h1 class="head">
 
     </h1>
