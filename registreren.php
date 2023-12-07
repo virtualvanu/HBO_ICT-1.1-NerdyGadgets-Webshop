@@ -26,7 +26,7 @@ include "cartfuncties.php";
         <input type="text" name="huisnummer" value="" placeholder="Huisnummer" class="gegevens" required><br>
         <input type="text" name="straatnaam" value="" placeholder="Straatnaam" class="gegevens" required><br>
         <input type="text" name="woonplaats" value=""placeholder="Plaats" class="gegevens" required><br>
-        <input type="text" name="emailadress" placeholder="Emailadress" value="" class="gegevens" required><br>
+        <input type="email" name="emailadress" placeholder="Emailadress" value="" class="gegevens" required><br>
         <input type="submit" value="Afrekenen"  style="background-color: #676EFF; width: 95.5%;border-radius: 8px; font-family: vortice-concept, sans-serif; font-weight: bold; color: antiquewhite">
     </p2>
 

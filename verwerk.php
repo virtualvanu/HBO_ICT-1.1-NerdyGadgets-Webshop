@@ -14,17 +14,7 @@ include "cartfuncties.php";
     $land = "Nederland";
     $klant_naam = $voornaam . " ". $tussenVoegsel . $achternaam;
     $hetadres = $straat_naam . " " . $huis_nummer;
-//    $email2 = $_POST["emailadress2"];
-//
-//if ($email2 == controlerenGegevens($databaseConnection, $email2)){
-// getCustomerGegevens($databaseConnection, $email2);
-//}
-//elseif($email2 !== controlerenGegevens($databaseConnection, $email2)) {
-//    Print ('U staat nog niet bij ons geregistreerd als klant');
-//}
-//else {
-//    klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
-//}
+
 //klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
 ?>
 
