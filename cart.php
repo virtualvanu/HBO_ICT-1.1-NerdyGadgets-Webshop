@@ -198,7 +198,7 @@ function checkInput() {
         {
             if($_SESSION['OutOfStockRemoval'] == 1)
             {
-                print("<p id='ERRORANNOUNCE'>1 of meerdere producten zijn uit uw winkelmand verwijderd i.v.m. een verandering in voorraad, excuses voor het ongemak.</p>");
+                print("<p id='ERRORANNOUNCE' style='color: #c700ff;'>1 of meerdere producten zijn uit uw winkelmand verwijderd i.v.m. een verandering in voorraad, excuses voor het ongemak.</p>");
             }
         }
         ?>
