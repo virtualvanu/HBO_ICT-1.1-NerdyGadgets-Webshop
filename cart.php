@@ -39,7 +39,6 @@ function checkInput() {
 
     $cart = getCart();
 
-
 //    $popUpConfirm = 1;
     if(isset($_POST['confirmRemove']))
     {
@@ -82,8 +81,36 @@ function checkInput() {
             $cart = getCart();
         }
     }
+    $i = 0;
+    $outOfStockRemovals = array();
+    foreach($cart as $itemId => $itemAmount) //Double check if cart items are still in stock, remove them from the cart if not.
+    {
+        $itemInfo = getStockItem($itemId, $dbConnection);
+        $dbQuantity = $itemInfo['QuantityOnHand'];
+        $dbQuantity = preg_replace('/[^0-9]/', '', $dbQuantity);
 
-    foreach($cart as $itemId => $itemAmount)
+        if($dbQuantity <= 0 || $dbQuantity < $itemAmount)
+        {
+            $outOfStockRemovals[$i] = $itemId;
+            $i++;
+        }
+    }
+    if(count($outOfStockRemovals) > 0)
+    {
+        $_SESSION['OutOfStockRemoval'] = true;
+        foreach ($outOfStockRemovals as $key => $removedProduct)
+        {
+            removeProductFromCart($removedProduct);
+        }
+        $outOfStockRemovals = array();
+        $cart = getCart();
+    }
+    else
+    {
+        $_SESSION['OutOfStockRemoval'] = false;
+    }
+
+    foreach($cart as $itemId => $itemAmount) //Populate the cart with added products
     {
 
 
@@ -166,6 +193,15 @@ function checkInput() {
 <h1 class="CartOverviewHeader">Overzicht</h1>
 <br>
 <div id="afrekenen" class="CartOverview">
+        <?php
+        if(isset($_SESSION['OutOfStockRemoval']))
+        {
+            if($_SESSION['OutOfStockRemoval'] == 1)
+            {
+                print("<p id='ERRORANNOUNCE' style='color: #c700ff;'>1 of meerdere producten zijn uit uw winkelmand verwijderd i.v.m. een verandering in voorraad, excuses voor het ongemak.</p>");
+            }
+        }
+        ?>
     <p style="font-size: x-large; margin: 0">Artikelen: <?php
         if(count($cart) > 0)
         {
