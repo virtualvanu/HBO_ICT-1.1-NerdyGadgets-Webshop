@@ -80,6 +80,12 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
+            <?php 
+            if(ischilled($_GET['id']) == 1){
+                print('<div>Temperature: <span id="temperature"></span></div>');
+            };
+            ?>
+            
             <div class="QuantityText">
                 <?php print $StockItem['QuantityOnHand']; ?>
             </div>
@@ -100,6 +106,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             <meta charset="UTF-8">
                             <title>Artikelpagina (geef ?id=.. mee)</title>
                             <link rel="stylesheet" href="custom.css"> <!-- to fix add to cart button jumping -->
+                            <script src="temperature_update.js"></script>
                         </head>
 
                         <body>

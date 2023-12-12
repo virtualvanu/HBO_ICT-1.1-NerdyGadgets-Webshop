@@ -56,7 +56,7 @@ function getStockItem($id, $databaseConnection) {
     $Result = null;
 
     $Query = " 
-           SELECT SI.StockItemID, 
+           SELECT SI.StockItemID,
             (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, 
             StockItemName,
             CONCAT('Voorraad: ',QuantityOnHand)AS QuantityOnHand,
@@ -154,3 +154,24 @@ function orderToevoegen($database, $klant_id, $betaalWijze, $datum)
     }
 
 }
+
+function ischilled($id){ //checks if a product is chilled or not.
+    $Connection = null;
+
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // Set MySQLi to throw exceptions
+    try {
+        $Connection = mysqli_connect("localhost", "root", "", "nerdygadgets");
+        mysqli_set_charset($Connection, 'latin1');
+        $DatabaseAvailable = true;
+    }
+    catch (Exception $e){
+        print($e);
+    }
+    $ischillerstock = null;
+    $databaseConnection = $Connection;
+    $ischillerstock = "SELECT IsChillerStock FROM stockitems WHERE StockItemID = '$id'";
+    $result = $databaseConnection->query($ischillerstock);
+    $markerData = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    
+    return $markerData['IsChillerStock'];
+};
