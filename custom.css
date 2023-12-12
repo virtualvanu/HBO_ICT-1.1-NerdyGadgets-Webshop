@@ -142,3 +142,27 @@
     margin-bottom: 10px;
     width: 95.5%;
 }
+
+.TopSellerContainer{
+    display: inline-block;
+    text-align: center;
+}
+
+.TopSellerImage{
+    width: 225px;
+    height: 225px;
+    margin-top: -40px;
+    margin-bottom: -45px;
+}
+
+.TopSellerPrice{
+    margin-top: -45px;
+    font-size: x-large;
+    color: #676EFF;
+    display: inline-block;
+}
+
+.TopSellerProductName{
+    font-size: x-large;
+    text-align: -moz-center;
+}
