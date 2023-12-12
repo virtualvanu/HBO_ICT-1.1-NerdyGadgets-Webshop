@@ -96,3 +96,30 @@
     margin-top: 20px;
 
 }
+
+.fa fa-bank{
+    width: 50%;
+    float: left;
+}
+.banken{
+    width: 50%;
+    float: left;
+}
+
+#TotaalPrijsVerwerk{
+    float: left
+}
+
+.checkBox{
+
+    width: 50%;
+}
+
+.gegevens {
+    background-color: rgb(35, 35, 47) ;
+    border-radius: 8px;
+    border:solid antiquewhite;
+    color: antiquewhite;
+    margin-bottom: 10px;
+    width: 95.5%;
+}
