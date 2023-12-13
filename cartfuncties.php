@@ -52,6 +52,7 @@ function getProductCartAmount($stockItemID)
     return 0;
 }
 
+<<<<<<< HEAD
 function getDiscountInfo($discountCode, $dbConnection) {
     $query = "SELECT * FROM kortingscodes WHERE Kortingscode = ?;";
 
@@ -70,5 +71,31 @@ function getDiscountInfo($discountCode, $dbConnection) {
     }
 }
 
+=======
+function emptyCart()
+{
+    if (isset($_SESSION['cart']))
+    {
+        $cart = array();
+        saveCart($cart);
+    }
+}
+
+function getCartTotal($databaseConnection)
+{
+    $cart = getCart();
+    $cartTotal = 0;
+    foreach($cart as $itemId => $itemAmount)
+    {
+        $itemInfo = getStockItem($itemId, $databaseConnection);
+        $itemPrice = round($itemInfo["SellPrice"], 2);
+        $totalItemPrice = $itemPrice * $itemAmount;
+        $cartTotal += $totalItemPrice;
+    }
+
+    return $cartTotal;
+}
+
+>>>>>>> develop
 
 ?>
