@@ -52,4 +52,23 @@ function getProductCartAmount($stockItemID)
     return 0;
 }
 
+function getDiscountInfo($discountCode, $dbConnection) {
+    $query = "SELECT * FROM kortingscodes WHERE Kortingscode = ?;";
+
+    $stmt = $dbConnection->prepare($query);
+    $stmt->bind_param("s", $discountCode);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $discountInfo = $result->fetch_assoc();
+        return $discountInfo;
+    } else {
+        return null; // Geen overeenkomende kortingscode gevonden
+    }
+}
+
+
 ?>

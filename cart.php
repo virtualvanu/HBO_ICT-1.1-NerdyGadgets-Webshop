@@ -32,11 +32,14 @@ function checkInput() {
         return false;
     }
 }
+<table class="CartTable" style="width: 60%;">
+
 </script>
 
     <?php
 
     $cart = getCart();
+
 
 
 //    $popUpConfirm = 1;
@@ -83,6 +86,7 @@ function checkInput() {
     }
 
     $cartTotal = 0;
+    $kortingBedrag = 0;
 
 
     foreach($cart as $itemId => $itemAmount)
@@ -158,6 +162,35 @@ function checkInput() {
 
         print($htmlstring);
     }
+    //KORTING WINKELMAND
+    if(isset($_POST['applyDiscount'])) {
+        $discountCode = $_POST['kortingscode'];
+
+        $discountInfo = getDiscountInfo($discountCode, $dbConnection);
+
+        if ($discountInfo) {
+            $ingangsdatum = strtotime($discountInfo['Ingangsdatum']);
+            $vervaldatum = strtotime($discountInfo['Vervaldatum']);
+            $huidigeDatum = time();
+
+
+            if ($huidigeDatum >= $ingangsdatum && $huidigeDatum <= $vervaldatum) {
+                $kortingPercentage = $discountInfo['Kortingspercentage'];
+                $kortingBedrag = ($kortingPercentage / 100) * $cartTotal;
+                $cartTotal -= $kortingBedrag;
+
+                $_SESSION['appliedDiscount'] = $discountCode;
+
+
+            } else {
+
+                echo "<script>alert('De kortingscode is niet meer geldig.');</script>";
+            }
+        } else {
+
+            echo "<script>alert('De kortingscode bestaat niet.');</script>";
+        }
+    }
 
     print("</table>");
     ?>
@@ -179,15 +212,37 @@ function checkInput() {
     </p>
     <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
     $verzendkosten = 6.30;
-        print("€".$verzendkosten);
+        print("€".number_format($verzendkosten, 2));
         ?>
-    </p>
+
+
+
+
+    <form method="post" action="cart.php" style="margin-bottom: 20px;">
+
+        <input type="text" id="kortingscode" name="kortingscode" placeholder="Voer kortingscode in" style="width: 200px;"><br>
+        <input type="submit" value="Toepassen" name="applyDiscount" class="CartOrderButton">
+    </form>
+
+    <p style="text-align: center; font-size: x-large; margin: 0">Korting:  <?php
+        if(isset($_POST['applyDiscount']))
+        {
+
+            print("€". number_format($kortingBedrag, 2, '.', ','));
+        }
+        else
+        {
+            print("€0.00");
+        }
+        ?>
+
+
     <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
     <p style="font-size: x-large; margin: 0">Totaal: <?php
         if(count($cart) > 0)
         {
 
-            print("€". ($displayCartTotalPrice + $verzendkosten));
+            print("€". number_format($displayCartTotalPrice + $verzendkosten - $kortingBedrag, 2, '.'));
         }
         else
         {
