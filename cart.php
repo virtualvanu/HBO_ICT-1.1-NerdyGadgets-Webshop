@@ -181,7 +181,7 @@ function checkInput() {
 
                 $_SESSION['appliedDiscount'] = $discountCode;
 
-
+                echo "<script>alert('De kortingscode is toegevoegd aan de winkelmand.');</script>";
             } else {
 
                 echo "<script>alert('De kortingscode is niet meer geldig.');</script>";
