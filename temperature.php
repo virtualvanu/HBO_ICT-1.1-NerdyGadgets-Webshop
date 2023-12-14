@@ -13,7 +13,7 @@ function get_temperature(){
     catch (Exception $e){
         print($e);
     }
-    $ischillerstock = "SELECT Temperature FROM coldroomtemperatures WHERE ColdRoomSensorNumber = '4'";
+    $ischillerstock = "SELECT Temperature FROM coldroomtemperatures WHERE ColdRoomSensorNumber = '5'";
     $result = $Connection->query($ischillerstock);
 
     if ($result && $result->num_rows > 0) {
