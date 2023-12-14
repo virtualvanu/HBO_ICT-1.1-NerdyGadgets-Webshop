@@ -157,9 +157,11 @@
 
 .TopSellerPrice{
     margin-top: -45px;
+    margin-left: 10px;
     font-size: x-large;
     color: #676EFF;
     display: inline-block;
+    text-align: right;
 }
 
 .TopSellerProductName{

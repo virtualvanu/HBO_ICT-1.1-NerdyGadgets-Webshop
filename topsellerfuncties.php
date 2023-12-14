@@ -5,10 +5,11 @@ function FetchProductTopFive($databaseConnection)
     $Result = null;
     $topFive = array();
     $Query = "
-    SELECT StockItemID, AmountSold, StockItemName, (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice 
-    FROM stockitems
+    SELECT SI.StockItemID, SI.AmountSold, SI.StockItemName, (SI.RecommendedRetailPrice*(1+(SI.TaxRate/100))) AS SellPrice, SH.QuantityOnHand 
+    FROM stockitems SI
+    JOIN stockitemholdings SH ON (SI.StockItemID=SH.StockItemID)
     WHERE AmountSold > 0
-    GROUP BY StockItemID;
+    GROUP BY AmountSold DESC;
     ";
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_execute($Statement);
@@ -25,7 +26,9 @@ function FetchProductTopFive($databaseConnection)
     {
         foreach ($Result as $record)
         {
-            if(!in_array($record['StockItemID'], $topFive))
+            $resultQuantity = $record['QuantityOnHand'];
+            $quantityInt = preg_replace('/[^0-9]/', '', $resultQuantity);
+            if(!in_array($record['StockItemID'], $topFive) && $quantityInt > 0)
             {
                 $productAmountSold = $record['AmountSold'];
                 if($productAmountSold > $mostSold)

@@ -18,23 +18,34 @@ include __DIR__ . "/topsellerfuncties.php";
         <div class="HomePageStockItemPicture"></div>
     </div>
     <div class="col-xl-11" style="text-align: center;">
-        <h1 class="TextMain" style="font-size: xx-large; text-align: -moz-center;"><b>TOP SELLERS</b></h1>
+        <h1 class="TextMain" style="font-size: xx-large; text-align: -moz-center;"><b>MEEST VERKOCHT</b></h1>
         <?php
         $topFive = FetchProductTopFive($databaseConnection);
         $sellerOne = getStockItem($topFive[0], $databaseConnection);
         $sellerOneImage = getStockItemImage($sellerOne['StockItemID'], $databaseConnection);
+        $sellerOnePrice = round($sellerOne['SellPrice'], 2);
+        $sellerOnePrice = number_format($sellerOnePrice, 2, '.', '.');
+
 
         $sellerTwo = getStockItem($topFive[1], $databaseConnection);
         $sellerTwoImage = getStockItemImage($sellerTwo['StockItemID'], $databaseConnection);
+        $sellerTwoPrice = round($sellerTwo['SellPrice'], 2);
+        $sellerTwoPrice = number_format($sellerTwoPrice, 2, '.', '.');
 
         $sellerThree = getStockItem($topFive[2], $databaseConnection);
         $sellerThreeImage = getStockItemImage($sellerThree['StockItemID'], $databaseConnection);
+        $sellerThreePrice = round($sellerThree['SellPrice'], 2);
+        $sellerThreePrice = number_format($sellerThreePrice, 2, '.', '.');
 
         $sellerFour = getStockItem($topFive[3], $databaseConnection);
         $sellerFourImage = getStockItemImage($sellerFour['StockItemID'], $databaseConnection);
+        $sellerFourPrice = round($sellerFour['SellPrice'], 2);
+        $sellerFourPrice = number_format($sellerFourPrice, 2, '.', '.');
 
         $sellerFive = getStockItem($topFive[4], $databaseConnection);
         $sellerFiveImage = getStockItemImage($sellerFive['StockItemID'], $databaseConnection);
+        $sellerFivePrice = round($sellerFive['SellPrice'], 2);
+        $sellerFivePrice = number_format($sellerFivePrice, 2, '.', '.');
         ?>
         <table class="col-xl-11" style="font-size: xx-large; text-align: -moz-center;">
             <tr>
@@ -48,13 +59,13 @@ include __DIR__ . "/topsellerfuncties.php";
                 <th>
                     <a href=view.php?id=<?php print $sellerOne['StockItemID'];?>><h3 class="TopSellerProductName"><?php print($sellerOne['StockItemName']);?></h3></a>
                     <a href=view.php?id=<?php print $sellerOne['StockItemID'];?>><img src="Public/StockItemIMG/<?php print $sellerOneImage[0]['ImagePath']; ?>" class="TopSellerImage"></a>
-                    <p class="TopSellerPrice">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    <p class="TopSellerPrice">€999.99</p>
+                    <p class="TopSellerPrice" style="text-align: inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <p class="TopSellerPrice">€<?php print($sellerOnePrice); ?></p> <!-- Mind the € and !-->
                 </th>
                 <th>
                     <a href=view.php?id=<?php print $sellerTwo['StockItemID'];?>><h3 class="TopSellerProductName"><?php print($sellerTwo['StockItemName']);?></h3></a>
                     <a href=view.php?id=<?php print $sellerTwo['StockItemID'];?>><img src="Public/StockItemIMG/<?php print $sellerTwoImage[0]['ImagePath']; ?>" class="TopSellerImage"></a>
-                    <p class="TopSellerPrice">€100.99!</p>
+                    <p class="TopSellerPrice">€<?php print($sellerTwoPrice); ?>!</p>
                     <span style='color:red;text-decoration:line-through ' class="TopSellerPrice" >
                         <span style='color:#5F63A5'>€999.99</span>
                     </span>
@@ -62,21 +73,21 @@ include __DIR__ . "/topsellerfuncties.php";
                 <th>
                     <a href=view.php?id=<?php print $sellerThree['StockItemID'];?>><h3 class="TopSellerProductName"><?php print($sellerThree['StockItemName']);?></h3></a>
                     <a href=view.php?id=<?php print $sellerThree['StockItemID'];?>><img src="Public/StockItemIMG/<?php print $sellerThreeImage[0]['ImagePath']; ?>" class="TopSellerImage"></a>
-                    <p class="TopSellerPrice">€100.99!</p>
+                    <p class="TopSellerPrice">€<?php print($sellerThreePrice); ?>!</p>
                     <span style='color:red;text-decoration:line-through ' class="TopSellerPrice" >
                         <span style='color:#5F63A5'>€999.99</span>
                     </span>                </th>
                 <th>
                     <a href=view.php?id=<?php print $sellerFour['StockItemID'];?>> <h3 class="TopSellerProductName"><?php print($sellerFour['StockItemName']);?></h3></a>
                     <a href=view.php?id=<?php print $sellerFour['StockItemID'];?>><img src="Public/StockItemIMG/<?php print $sellerFourImage[0]['ImagePath']; ?>" class="TopSellerImage"></a>
-                    <p class="TopSellerPrice">€100.99!</p>
+                    <p class="TopSellerPrice">€<?php print($sellerFourPrice); ?>!</p>
                     <span style='color:red;text-decoration:line-through ' class="TopSellerPrice" >
                         <span style='color:#5F63A5'>€999.99</span>
                     </span>                </th>
                 <th>
                     <a href=view.php?id=<?php print $sellerFive['StockItemID'];?>><h3 class="TopSellerProductName"><?php print($sellerFive['StockItemName']);?></h3></a>
                     <a href=view.php?id=<?php print $sellerFive['StockItemID'];?>><img src="Public/StockItemIMG/<?php print $sellerFiveImage[0]['ImagePath']; ?>" class="TopSellerImage"></a>
-                    <p class="TopSellerPrice">€100.99!</p>
+                    <p class="TopSellerPrice">€<?php print($sellerFivePrice); ?>!</p>
                     <span style='color:red;text-decoration:line-through ' class="TopSellerPrice" >
                         <span style='color:#5F63A5'>€999.99</span>
                     </span>
