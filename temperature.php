@@ -26,4 +26,4 @@ function get_temperature(){
 }
 
 
-print(get_temperature());
+print(round(get_temperature(), 1));

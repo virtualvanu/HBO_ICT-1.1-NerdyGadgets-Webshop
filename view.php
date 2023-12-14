@@ -82,7 +82,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             </h2>
             <?php 
             if(ischilled($_GET['id']) == 1){
-                print('<div>Temperature: <span id="temperature"></span></div>');
+                print('<div>Temperature: <span id="temperature"></span>°C</div>');
             };
             ?>
             
