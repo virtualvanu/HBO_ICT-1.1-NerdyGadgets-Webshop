@@ -154,3 +154,54 @@ function orderToevoegen($database, $klant_id, $betaalWijze, $datum)
     }
 
 }
+
+function isOnSale($id, $databaseConnection)
+{
+    $Result = null;
+
+    $Query = " 
+           SELECT OnSale 
+        FROM stockitems
+        Where StockItemID=?;";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, "i", $id);
+    mysqli_stmt_execute($Statement);
+    $ReturnableResult = mysqli_stmt_get_result($Statement);
+    if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 1) {
+        $Result = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC)[0];
+    }
+
+    $onSale = $Result['OnSale'];
+
+    if($onSale == 0)
+    {
+        return FALSE;
+    }
+    else
+    {
+        return TRUE;
+    }
+}
+
+function getDiscountedPrice($id, $databaseConnection)
+{
+    $Result = null;
+
+    $Query = " 
+          SELECT (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, DiscountPercentage FROM stockitems WHERE StockItemID= ?;
+          ";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, "i", $id);
+    mysqli_stmt_execute($Statement);
+    $ReturnableResult = mysqli_stmt_get_result($Statement);
+    if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 1) {
+        $Result = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC)[0];
+    }
+
+    $price = round($Result['SellPrice'], 2);
+    $discount = $Result['DiscountPercentage'];
+
+    return $price - ($price * ($discount / 100));
+}
