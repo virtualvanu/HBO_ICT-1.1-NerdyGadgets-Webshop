@@ -86,13 +86,11 @@ function checkInput() {
         }
     }
 
-<<<<<<< HEAD
+
     $cartTotal = 0;
-    $kortingBedrag = 0;
+    $kortingBedrag =  0;
 
 
-=======
->>>>>>> develop
     foreach($cart as $itemId => $itemAmount)
     {
 
@@ -108,7 +106,7 @@ function checkInput() {
 
         $displayItemPrice = number_format($itemPrice, 2, '.', '.');
         $displayPrice = number_format($totalItemPrice, 2, '.', '.');
-        $displayCartTotalPrice = number_format(getCartTotal($dbConnection), 2, '.', '.');
+        $displayCartTotalPrice = is_numeric(number_format(getCartTotal($dbConnection), 2, '.', '.'));
 
         $htmlstring = "
       <tr>
@@ -167,6 +165,8 @@ function checkInput() {
         </tr>";
 
         print($htmlstring);
+        $cartTotal = getCartTotal($dbConnection);
+        $displayCartTotalPrice = number_format($cartTotal, 2, '.', '.');
     }
     //KORTING WINKELMAND
     if(isset($_POST['applyDiscount'])) {
@@ -182,7 +182,7 @@ function checkInput() {
 
             if ($huidigeDatum >= $ingangsdatum && $huidigeDatum <= $vervaldatum) {
                 $kortingPercentage = $discountInfo['Kortingspercentage'];
-                $kortingBedrag = ($kortingPercentage / 100) * $cartTotal;
+                $kortingBedrag = round(($kortingPercentage / 100) * $cartTotal);
                 $cartTotal -= $kortingBedrag;
 
                 $_SESSION['appliedDiscount'] = $discountCode;
@@ -199,6 +199,7 @@ function checkInput() {
     }
 
     print("</table>");
+
     ?>
 
 </table>
@@ -208,7 +209,7 @@ function checkInput() {
     <p style="font-size: x-large; margin: 0">Artikelen: <?php
         if(count($cart) > 0)
         {
-            print("€$displayCartTotalPrice");
+            print("€". $displayCartTotalPrice);
         }
         else
         {
@@ -216,59 +217,59 @@ function checkInput() {
         }
         ?>
     </p>
-<<<<<<< HEAD
+
     <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
-    $verzendkosten = 6.30;
-        print("€".number_format($verzendkosten, 2));
-=======
-        <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
+
         $verzendkosten = 0;
         $cartTotal = getCartTotal($dbConnection);
 
-        if (is_numeric($cartTotal) && $cartTotal < 100 && $cartTotal != 0) {
-            $verzendkosten = 6.3;
+        if (is_numeric($cartTotal) && $cartTotal < 100.00 && $cartTotal != 0) {
+            $verzendkosten = is_numeric(6.30);
             print("€".number_format($verzendkosten, 2, '.', '.'));
         } else {
+            $verzendkosten = is_numeric(0);
             print("€0.00");
         }
->>>>>>> develop
-        ?>
 
+        ?>
 
 
 
     <form method="post" action="cart.php" style="margin-bottom: 20px;">
 
-        <input type="text" id="kortingscode" name="kortingscode" placeholder="Voer kortingscode in" style="width: 200px;"><br>
+        <input type="text" id="kortingscode" name="kortingscode" placeholder="Voer kortingscode in" style="width: 200px;">
         <input type="submit" value="Toepassen" name="applyDiscount" class="CartOrderButton">
+        <p style="text-align: center; font-size: x-large; margin: 0">Korting:  <?php
+            if(isset($_POST['applyDiscount']))
+            {
+
+                $cartTotal -= $kortingBedrag;
+                $displayCartTotalPrice = number_format($cartTotal, 2, '.', '.');
+
+                print("€". number_format($kortingBedrag, 2, '.','.'));
+            }
+            else
+            {
+                print("€0.00");
+            }
+            ?>
     </form>
 
-    <p style="text-align: center; font-size: x-large; margin: 0">Korting:  <?php
-        if(isset($_POST['applyDiscount']))
-        {
-
-            print("€". number_format($kortingBedrag, 2, '.', ','));
-        }
-        else
-        {
-            print("€0.00");
-        }
-        ?>
 
 
     <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
     <p style="font-size: x-large; margin: 0">Totaal: <?php
         if(count($cart) > 0)
         {
-<<<<<<< HEAD
 
-            print("€". number_format($displayCartTotalPrice + $verzendkosten - $kortingBedrag, 2, '.'));
-=======
+
+            print("€" . $displayCartTotalPrice); //TODO: verzendkosten (niet met display variables rekenen)
+
             $cartTotal = getCartTotal($dbConnection);
-            $orderTotal = $cartTotal + $verzendkosten;
-            $displayOrderTotal = number_format($orderTotal, 2, '.', '.');
-            print("€". ($displayOrderTotal));
->>>>>>> develop
+            $orderTotal = $cartTotal + $verzendkosten - $kortingBedrag;
+            $displayOrderTotal = number_format($orderTotal);
+
+
         }
         else
         {
@@ -277,10 +278,10 @@ function checkInput() {
         ?>
 
     </p>
-<br>
+
     <a href="http://localhost/nerdygadgets/Bestelscherm.php">
     <?php
-        
+
         if(count(getCart()) <= 0){
             print ('<button class="CartOrderButtonDisabled" disabled>BESTELLEN</button>');
         }else{

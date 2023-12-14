@@ -117,7 +117,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             <form method="post" position=absolute>
                                 <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
                                 <input type="number" name="itemAmount" value="1" min="1">
-                                <input type="submit" name="submit" value="Voeg toe aan winkelmand">
+                                <input type="submit" name="submit" value="Voeg toe aan winkelmand" class="Voegtoeaanwinkelmand2">
                             </form>
                             <div class="message"> <!-- reserveert ruimte voor added to cart message onder button -->
 

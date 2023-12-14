@@ -52,7 +52,7 @@ function getProductCartAmount($stockItemID)
     return 0;
 }
 
-<<<<<<< HEAD
+
 function getDiscountInfo($discountCode, $dbConnection) {
     $query = "SELECT * FROM kortingscodes WHERE Kortingscode = ?;";
 
@@ -71,7 +71,6 @@ function getDiscountInfo($discountCode, $dbConnection) {
     }
 }
 
-=======
 function emptyCart()
 {
     if (isset($_SESSION['cart']))
@@ -96,6 +95,6 @@ function getCartTotal($databaseConnection)
     return $cartTotal;
 }
 
->>>>>>> develop
+
 
 ?>
