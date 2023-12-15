@@ -9,7 +9,7 @@ function FetchProductTopFive($databaseConnection)
     FROM stockitems SI
     JOIN stockitemholdings SH ON (SI.StockItemID=SH.StockItemID)
     WHERE AmountSold > 0
-    GROUP BY AmountSold DESC;
+    ORDER BY AmountSold DESC;
     ";
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_execute($Statement);
@@ -22,7 +22,13 @@ function FetchProductTopFive($databaseConnection)
     $mostSold = 0;
     $mostSoldID = 0;
     $i = 0;
-    while(count($topFive) < 5)
+
+    $desiredCount = 5;
+    if(count($Result) < $desiredCount)
+    {
+        $desiredCount = count($Result);
+    }
+    while(count($topFive) < $desiredCount)
     {
         foreach ($Result as $record)
         {
@@ -31,7 +37,7 @@ function FetchProductTopFive($databaseConnection)
             if(!in_array($record['StockItemID'], $topFive) && $quantityInt > 0)
             {
                 $productAmountSold = $record['AmountSold'];
-                if($productAmountSold > $mostSold)
+                if($productAmountSold >= $mostSold && $productAmountSold != 0)
                 {
                     $mostSold = $productAmountSold;
                     $mostSoldID = $record['StockItemID'];
@@ -46,4 +52,23 @@ function FetchProductTopFive($databaseConnection)
     }
 
     return $topFive;
+}
+
+function TopSellerExists($number, $dbConnection)
+{
+    if($number > 5 || $number < 0)
+    {
+        return false;
+    }
+
+    $topFive = FetchProductTopFive($dbConnection);
+    if(key_exists($number, $topFive))
+    {
+            return true;
+    }
+    else
+    {
+        return false;
+    }
+
 }

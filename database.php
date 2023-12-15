@@ -203,5 +203,13 @@ function getDiscountedPrice($id, $databaseConnection)
     $price = round($Result['SellPrice'], 2);
     $discount = $Result['DiscountPercentage'];
 
-    return $price - ($price * ($discount / 100));
+    if($discount != null)
+    {
+        return $price - ($price * ($discount / 100));
+    }
+    else
+    {
+        return $price;
+    }
+
 }
