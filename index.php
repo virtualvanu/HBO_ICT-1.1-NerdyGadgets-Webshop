@@ -85,23 +85,47 @@ include __DIR__ . "/topsellerfuncties.php";
                 <th>
                     <a href=view.php?id=<?php print $sellerFour['StockItemID'];?>> <h3 class="TopSellerProductName"><?php print($sellerFour['StockItemName']);?></h3></a>
                     <a href=view.php?id=<?php print $sellerFour['StockItemID'];?>><img src="Public/StockItemIMG/<?php print $sellerFourImage[0]['ImagePath']; ?>" class="TopSellerImage"></a>
-                    <p class="TopSellerPrice">€<?php print($sellerFourPrice); ?>!</p>
-                    <span style='color:red;text-decoration:line-through ' class="TopSellerPrice" >
-                        <span style='color:#5F63A5'>€999.99</span>
-                    </span>                </th>
-                <th>
-                    <a href=view.php?id=<?php print $sellerFive['StockItemID'];?>><h3 class="TopSellerProductName"><?php print($sellerFive['StockItemName']);?></h3></a>
-                    <a href=view.php?id=<?php print $sellerFive['StockItemID'];?>><img src="Public/StockItemIMG/<?php print $sellerFiveImage[0]['ImagePath']; ?>" class="TopSellerImage"></a>
-                    <p class="TopSellerPrice">€<?php
-                        if(isOnSale($sellerFive['StockItemID'], $databaseConnection))
+                    <p class="TopSellerPrice"><?php
+                        if(isOnSale($sellerFour['StockItemID'], $databaseConnection))
                         {
-                            print($displayDiscountPriceFive);
+                            print('€'.$displayDiscountPriceFour.'!');
                         }
                         else
                         {
                             print($emptyWhitespace);
                         }
-                    ?>!
+                        ?>
+
+                    </p>
+                    <?php
+                    if(isOnSale($sellerFour['StockItemID'], $databaseConnection))
+                    {
+                        $htmlStringFour = "
+                    <span style='color:red;text-decoration:line-through ' class='TopSellerPrice' >
+                        <span style='color:#5F63A5'>€$sellerFourPrice</span>
+                    </span>
+                    ";
+                        print($htmlStringFour);
+                    }
+                    else
+                    {
+                        print('<h3 class="TopSellerPrice">'.'€'.$sellerFourPrice.'</h3>');
+                    }
+                    ?>
+                </th>
+                <th>
+                    <a href=view.php?id=<?php print $sellerFive['StockItemID'];?>><h3 class="TopSellerProductName"><?php print($sellerFive['StockItemName']);?></h3></a>
+                    <a href=view.php?id=<?php print $sellerFive['StockItemID'];?>><img src="Public/StockItemIMG/<?php print $sellerFiveImage[0]['ImagePath']; ?>" class="TopSellerImage"></a>
+                    <p class="TopSellerPrice"><?php
+                        if(isOnSale($sellerFive['StockItemID'], $databaseConnection))
+                        {
+                            print('€'.$displayDiscountPriceFive.'!');
+                        }
+                        else
+                        {
+                            print($emptyWhitespace);
+                        }
+                        ?>
 
                     </p>
                     <?php
@@ -109,13 +133,16 @@ include __DIR__ . "/topsellerfuncties.php";
                     {
                         $htmlStringFive = "
                     <span style='color:red;text-decoration:line-through ' class='TopSellerPrice' >
-                        <span style='color:#5F63A5'>$sellerFivePrice</span>
+                        <span style='color:#5F63A5'>€$sellerFivePrice</span>
                     </span>
                     ";
                         print($htmlStringFive);
                     }
+                    else
+                    {
+                        print('<h3 class="TopSellerPrice">'.'€'.$sellerFivePrice.'</h3>');
+                    }
                     ?>
-
                 </th>
             </tr>
         </table>
