@@ -15,8 +15,8 @@ include "cartfuncties.php";
     $klant_naam = $voornaam . " ". $tussenVoegsel . $achternaam;
     $hetadres = $straat_naam . " " . $huis_nummer;
 
-<<<<<<< HEAD
-=======
+
+
     emptyCart(); //TEMPORARY Delete the contents of your cart when this page is loaded. TODO: Implement this to happen after payment.
 //    $email2 = $_POST["emailadress2"];
 //
@@ -29,7 +29,7 @@ include "cartfuncties.php";
 //else {
 //    klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
 //}
->>>>>>> develop
+
 //klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
 ?>
 

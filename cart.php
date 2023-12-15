@@ -104,9 +104,9 @@ function checkInput() {
         $itemPrice = round($itemInfo["SellPrice"], 2);
         $totalItemPrice = $itemPrice * $itemAmount;
 
-        $displayItemPrice = number_format($itemPrice, 2, '.', '.');
-        $displayPrice = number_format($totalItemPrice, 2, '.', '.');
-        $displayCartTotalPrice = is_numeric(number_format(getCartTotal($dbConnection), 2, '.', '.'));
+        $displayItemPrice = number_format($itemPrice, 2, ',', '.');
+        $displayPrice = number_format($totalItemPrice, 2, ',', '.');
+        $displayCartTotalPrice = is_numeric(number_format(getCartTotal($dbConnection), 2, ',', '.'));
 
         $htmlstring = "
       <tr>
@@ -166,7 +166,7 @@ function checkInput() {
 
         print($htmlstring);
         $cartTotal = getCartTotal($dbConnection);
-        $displayCartTotalPrice = number_format($cartTotal, 2, '.', '.');
+        $displayCartTotalPrice = number_format($cartTotal, 2, ',', '.');
     }
     //KORTING WINKELMAND
     if(isset($_POST['applyDiscount'])) {
@@ -187,14 +187,14 @@ function checkInput() {
 
                 $_SESSION['appliedDiscount'] = $discountCode;
 
-                echo "<script>alert('De kortingscode is toegevoegd aan de winkelmand.');</script>";
+                echo "<script>alert('De kortingscode is toegevoegd aan de winkelmand!');</script>";
             } else {
 
-                echo "<script>alert('De kortingscode is niet meer geldig.');</script>";
+                echo "<script>alert('Voer een geldige kortingscode in!');</script>";
             }
         } else {
 
-            echo "<script>alert('De kortingscode bestaat niet.');</script>";
+            echo "<script>alert('Voer een geldige kortingscode in!');</script>";
         }
     }
 
@@ -225,10 +225,10 @@ function checkInput() {
 
         if (is_numeric($cartTotal) && $cartTotal < 100.00 && $cartTotal != 0) {
             $verzendkosten = is_numeric(6.30);
-            print("€".number_format($verzendkosten, 2, '.', '.'));
+            print("€".number_format($verzendkosten, 2, ',', '.'));
         } else {
             $verzendkosten = is_numeric(0);
-            print("€0.00");
+            print("€0,00");
         }
 
         ?>
@@ -244,9 +244,9 @@ function checkInput() {
             {
 
                 $cartTotal -= $kortingBedrag;
-                $displayCartTotalPrice = number_format($cartTotal, 2, '.', '.');
+                $displayCartTotalPrice = number_format($cartTotal, 2, ',', '.');
 
-                print("€". number_format($kortingBedrag, 2, '.','.'));
+                print("€". number_format($kortingBedrag, 2, ',','.'));
             }
             else
             {
