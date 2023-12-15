@@ -15,44 +15,8 @@ include "cartfuncties.php";
     $klant_naam = $voornaam . " ". $tussenVoegsel . $achternaam;
     $hetadres = $straat_naam . " " . $huis_nummer;
 
-<<<<<<< HEAD
-    emptyCart(); //TEMPORARY Delete the contents of your cart when this page is loaded. TODO: Implement this to happen after payment.
 
-=======
-     finishOrder($databaseConnection); //TEMPORARY Delete the contents of your cart when this page is loaded. TODO: Implement this to happen after payment.
 
-function finishOrder($databaseConnection)
-{
-    $cart = getCart();
-
-    foreach ($cart as $itemId => $itemAmount)
-    {
-        $StockItem = getStockItem($itemId, $databaseConnection);
-        $dbQuantity = $StockItem['QuantityOnHand'];
-        if($dbQuantity > 0 && $itemAmount <= $dbQuantity)
-        {
-            $Query = "CALL RemoveProductQuantity($itemId, $itemAmount);";
-            $Statement = mysqli_prepare($databaseConnection, $Query);
-            mysqli_stmt_execute($Statement);
-            $Result = mysqli_stmt_get_result($Statement);
-        }
-
-    }
-    emptyCart();
-}
-//    $email2 = $_POST["emailadress2"];
-//
-//if ($email2 == controlerenGegevens($databaseConnection, $email2)){
-// getCustomerGegevens($databaseConnection, $email2);
-//}
-//elseif($email2 !== controlerenGegevens($databaseConnection, $email2)) {
-//    Print ('U staat nog niet bij ons geregistreerd als klant');
-//}
-//else {
-//    klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
-//}
-//klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
->>>>>>> feature/Peter
 ?>
 
 
@@ -91,6 +55,11 @@ function finishOrder($databaseConnection)
 
 
          </div>
+
+         <a href="http://localhost/nerdygadgets/order.php">
+             <button type="submit" class="CartOrderButton">Afrekenen</button>
+         </a>
+
          <br><br>
      </div>
 <!-- <h1 class="CartOverviewHeader">Overzicht</h1>-->
