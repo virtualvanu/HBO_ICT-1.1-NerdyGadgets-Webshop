@@ -237,7 +237,7 @@ function checkInput() {
         if(count($cart) > 0)
         {
             $cartTotal = getCartTotal($dbConnection);
-            $orderTotal = $cartTotal + $verzendkosten;
+            $orderTotal = $cartTotal + $verzendkostenTotaal;
             $displayOrderTotal = number_format($orderTotal, 2, '.', '.');
             print("€". ($displayOrderTotal));
         }
