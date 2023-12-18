@@ -214,15 +214,22 @@ function checkInput() {
         ?>
     </p>
         <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
-        $verzendkosten = 0;
-        $cartTotal = getCartTotal($dbConnection);
+            $verzendkostenTotaal = 0;
 
-        if (is_numeric($cartTotal) && $cartTotal < 100 && $cartTotal != 0) {
-            $verzendkosten = 6.3;
-            print("€".number_format($verzendkosten, 2, '.', '.'));
-        } else {
-            print("€0.00");
-        }
+            $productInCart = getCart();
+            $cartTotal = getCartTotal($dbConnection);
+
+            foreach ($productInCart as $stockItemID => $quantity) {
+                $packageType = getPackageType($stockItemID);
+                $verzendkosten = berekenVerzendKosten($packageType, $quantity);
+                $verzendkostenTotaal += $verzendkosten;
+            }
+
+            if ($verzendkostenTotaal > 0) {
+                print("€" . number_format($verzendkostenTotaal, 2, '.', '.'));
+            } else {
+                print("€0.00");
+            }
         ?>
     </p>
     <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>

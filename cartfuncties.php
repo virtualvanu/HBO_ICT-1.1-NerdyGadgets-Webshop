@@ -76,5 +76,53 @@ function getCartTotal($databaseConnection)
     return $cartTotal;
 }
 
+function berekenVerzendKosten($packageType, $quantity) {
+    $kosten = 0;
 
+    switch ($packageType) {
+        case 1: // Bag
+            $aantalZakjes = $quantity;
+            $kosten = 6.95 * ceil($aantalZakjes / 50);
+            break;
+        case 7: // Each
+            $aantalStuks = $quantity;
+            $kosten = 6.95 * ceil($aantalStuks / 15);
+            break;
+        case 9: // Packet
+            $usbAantallen = $quantity[0];
+            $actionFigureAantallen = $quantity[1];
+            $totaalAantal = $usbAantallen + $actionFigureAantallen;
+            $kosten = 6.95 * ceil($totaalAantal / 10); 
+            break;
+        case 10: // Pair
+            $aantalParen = $quantity;
+            $kosten = 6.95 * ceil($aantalParen / 100);
+            break;
+        default:
+            echo "Ongeldig UnitpackageID";
+            // print ($packageType);
+            break;
+    }
+
+    return $kosten;
+}
+function getPackageType($stockItemID){
+    $Connection = null;
+
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    try {
+        $Connection = mysqli_connect("localhost", "root", "", "nerdygadgets");
+        mysqli_set_charset($Connection, 'latin1');
+        $DatabaseAvailable = true;
+    }
+    catch (Exception $e){
+        print($e);
+    }
+    $databaseConnection = $Connection;
+    $PackageType = "SELECT UnitPackageID FROM stockitems WHERE StockItemID = $stockItemID;";
+    $result = $databaseConnection->query($PackageType);
+    $markerData = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    
+    return $markerData['UnitPackageID'];
+}
 ?>
