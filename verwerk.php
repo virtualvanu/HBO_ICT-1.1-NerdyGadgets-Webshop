@@ -1,73 +1,32 @@
 <?php
 include "header.php";
 include "cartfuncties.php";
+include "verwerkfuncties.php";
 
-    $databaseConnection = connectToDatabase();
-    $voornaam = "Jelmer";
-    $tussenVoegsel = (empty($_POST["tussenvoegsel"])) ? " " : $_POST["tussenvoegsel"];
-    $achternaam = "Kanis";
-    $postcode = "7463PK";
-    $email = "12345@info.nl";
-    $huis_nummer = "4";
-    $straat_naam = "Twijnspil";
-    $woonplaats = "Wierden";
-    $land = "Nederland";
-    $klant_naam = $voornaam . " ". $tussenVoegsel . $achternaam;
-    $hetadres = $straat_naam . " " . $huis_nummer;
+$databaseConnection = connectToDatabase();
 
-     finishOrder($databaseConnection); //TEMPORARY Delete the contents of your cart when this page is loaded. TODO: Implement this to happen after payment.
-
-
-    foreach ($cart as $itemId => $itemAmount)
-    {
-        $StockItem = getStockItem($itemId, $databaseConnection);
-        $dbQuantity = $StockItem['QuantityOnHand'];
-        if($dbQuantity > 0 && $itemAmount <= $dbQuantity)
-        {
-            $Query = "CALL RemoveProductQuantity($itemId, $itemAmount);";
-            $Statement = mysqli_prepare($databaseConnection, $Query);
-            mysqli_stmt_execute($Statement);
-            $Result = mysqli_stmt_get_result($Statement);
-        }
-
-    }
-    emptyCart();
-}
-//    $email2 = $_POST["emailadress2"];
-//
-//if ($email2 == controlerenGegevens($databaseConnection, $email2)){
-// getCustomerGegevens($databaseConnection, $email2);
-//}
-//elseif($email2 !== controlerenGegevens($databaseConnection, $email2)) {
-//    Print ('U staat nog niet bij ons geregistreerd als klant');
-//}
-//else {
-//    klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
-//}
-
-//klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
 ?>
 
 
 <html>
 <lang nl></lang>
  <body>
- <h1> <?php print($klant_naam) ?>, u kunt nu uw bestelling afronden</h1>
+ <h1> <?php if(!empty($_SESSION['voornaam'])) {echo ($_SESSION['voornaam']); } ?>, u kunt nu uw bestelling afronden</h1>
  <div id="bestelldiv" class="center">
      <div id="bestellen">
          <p>Controleer uw besteladres.</p>
 
          <div id="anderadres" class="border">
              <div id="afleveradres">
-                 <p>Afleveradres: <br>Naam: <?php print $klant_naam ?> <br> Adres: <?php print $hetadres ?> <br>
-                     Postcode: <?php print $postcode ?> <br> Woonplaats: <?php print $woonplaats ?></p>
+                 <p>Afleveradres: <br>Naam: <?php if(!empty($_SESSION['voornaam'])) {echo ($_SESSION['voornaam']); } ?> <br> Adres: <?php if(!empty($_SESSION['straatnaam']) ){echo ($_SESSION['straatnaam']);}   ?> <br>
+                     Postcode: <?php if(!empty($_SESSION['postcode'])) {echo ($_SESSION['postcode']); } ?> <br> Woonplaats: <?php if(!empty($_SESSION['plaats']) ){echo ($_SESSION['plaats']);}   ?></p>
              </div>
          </div>
          <br>
          <h4 class="fa fa-bank"> IDeal betalen:</h4>
          <br>
          <div id="banken">
-             <form action="#" method="post">
+             <form action="order.php" method="post">
                  <select name="banken" id="banken">
                      <option value="ing">ING</option>
                      <option value="rabobank">Rabobank</option>
@@ -81,66 +40,53 @@ include "cartfuncties.php";
                      <option value="triodosbank">Triodos Bank</option>
                      <option value="vanlanschot">Van Lanschot</option>
                  </select>
+                 <input type="submit" class="CartOrderButton" value="afrekenen">
 
 
          </div>
 
-         <a href="http://localhost/nerdygadgets/order.php">
-             <button type="submit" class="CartOrderButton">Afrekenen</button>
-         </a>
+
 
          <br><br>
      </div>
 <!-- <h1 class="CartOverviewHeader">Overzicht</h1>-->
  <br>
- <div id="TotaalPrijsVerwerk" class="CartOverview">
-     <p style="font-size: x-large; margin: 0">Artikelen: <?php
-         $cartTotal = 0;
-        $cart = getCart();
-
-         foreach($cart as $itemId => $itemAmount)
-         {
 
 
-         $images = getStockItemImage($itemId, $databaseConnection);
-         $firstImagePath = $images[0]['ImagePath'];
-         $itemPrice = 9999;
-         $itemName = "UNDEFINED";
-         $itemInfo = getStockItem($itemId, $databaseConnection);
-         $itemName = $itemInfo["StockItemName"];
-         $itemPrice = round($itemInfo["SellPrice"], 2);
-         $totalItemPrice = $itemPrice * $itemAmount;
-         $cartTotal += $totalItemPrice;
-         $displayPrice = number_format($totalItemPrice, 2, '.', '.');
-         $displayCartTotalPrice = number_format($cartTotal, 2, '.', '.');}
-         if(count($cart) > 0)
-         {
-             print("€$displayCartTotalPrice");
-         }
-         else
-         {
-             print("€0.00");
-         }
+
+
+     <div id="afrekenen" class="CartOverview">
+         <?php
+
          ?>
-     </p>
-     <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
-         $verzendkosten = 6.30;
-         print("€".$verzendkosten);
-         ?>
-     </p>
-     <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
-     <p style="font-size: x-large; margin: 0">Totaal: <?php
-         if(count($cart) > 0)
-         {
+         <p style="font-size: x-large; margin: 0">Artikelen: <?php
+             print("€".(number_format($_SESSION['Totaalwinkelmand'], 2, ',', '.') ));            ?>
 
-             print("€". ($displayCartTotalPrice + $verzendkosten));
-         }
-         else
-         {
-             print("€0.00");
-         }
-         ?>
+         </p>
+         <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
+             print("€".(number_format($_SESSION['VerzendKost'], 2, ',', '.')));
+             ?>
+
+             <p style="text-align: center; font-size: x-large; margin: 0">Korting:  <?php
+                 if (!empty($_SESSION['Korting']) ){
+                     print ("€".number_format($_SESSION['Korting'], 2, ',', '.'));
+                 }
+                 else {
+                     print ("€0,00");
+
+                 }
+                 ?>
+
+         </p>
+
+         <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
+         <p style="font-size: x-large; margin: 0">Totaal: <?php
+             print ("€".(number_format($_SESSION['OrderTotal'], 2, ',', '.')));
+             ?>
+
+         </p>
      </p>
      <br>
+     </div>
  </body>
 </html>

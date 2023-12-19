@@ -304,6 +304,11 @@ function checkInput() {
             print("€". ($displayOrderTotal));
             $orderTotal = $cartTotal + $verzendkosten - $kortingBedrag;
             $displayOrderTotal = number_format($orderTotal);
+            $_SESSION['OrderTotal'] = $displayOrderTotal;
+            $_SESSION['VerzendKost'] = $verzendkosten;
+            $_SESSION['Korting'] = $kortingBedrag;
+            $_SESSION['Totaalwinkelmand'] = $cartTotal;
+
         }
         else
         {

@@ -3,6 +3,12 @@
 include "header.php";
 ?>
 
+<?php
+if (isset($_SESSION['PersonID'])){
+    header('Location: verwerk.php');
+    exit();
+
+} ?>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -17,6 +23,16 @@ include "header.php";
 
     </h1>
 
+    <p>U bent nog niet ingelogd</p>
+        <a href="http://localhost/nerdygadgets/login.php">
+            <button value="Inloggen" class="knop" style="display: inline-grid">Inloggen</button>
+        </a>
+
+
+
+        <a href="http://localhost/nerdygadgets/registratie.php">
+            <button class="knop" style="display: inline-grid; margin-left: 85px">Registreren</button>
+        </a>
 
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
@@ -25,14 +41,9 @@ include "header.php";
 <body style="border-top: 1px solid rgb(36, 41, 143)">
 <link rel="stylesheet" type="text/css" href="custom.css">
 
-
-</form>
-
 <div style="float: left; margin-left: 40px; width: 40%">
 
-    <a href="http://localhost/nerdygadgets/verwerk.php">
-    <button>U bent ingelogd</button>
-    </a>
+
 </div>
 
 </body>
