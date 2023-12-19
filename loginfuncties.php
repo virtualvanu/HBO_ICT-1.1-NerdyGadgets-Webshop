@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 }
 if (isset($_SESSION['PersonID'])){
 header('Location: user_page.php');
-
+    exit();
 
 }
 
@@ -40,27 +40,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($hashedPassword === $storedHashedPassword) {
 
 
-                // Inloggen gelukt, sla de PersonID op in de sessie en stuur door naar gebruikerspagina
-                $_SESSION['PersonID'] = $row['PersonID'];
-                $_SESSION['voornaam'] = $row['FullName'];
-                $_SESSION['EmailAddress'] = $row['EmailAddress'];
-//                $_SESSION['postcode'] = "Postcode..";
-//                $_SESSION['plaats'] = "Plaats..";
-//                $_SESSION['straatnaam'] = "Straatnaam..";
+            // Inloggen gelukt, sla de PersonID op in de sessie en stuur door naar gebruikerspagina
+            $_SESSION['PersonID'] = $row['PersonID'];
+            $_SESSION['voornaam'] = $row['FullName'];
+            $_SESSION['EmailAddress'] = $row['EmailAddress'];
+            $ingelogde_personID = $row['PersonID'];
+            $query1 = "SELECT * FROM customers WHERE PrimaryContactPersonID = '$ingelogde_personID'";
+            $result1 = $conn->query($query1);
+                if ($result1->num_rows > 0) {
+                $row = $result1->fetch_assoc();
+                $_SESSION['postcode'] = $row['PostalPostalCode'];;
+                $_SESSION['plaats'] = $row["PostalAddressLine2"];
+                $_SESSION['straatnaam'] = $row["PostalAddressLine1"];
                 header("Location: user_page.php");
                 exit();
                 // Voer verdere acties uit voor ingelogde gebruiker
+            }
 
-        } else {
-            // Onjuist wachtwoord
-            echo "<script>alert('Onjuist wachtwoord');</script>";
         }
-    } else {
+       else {
+        // Onjuist wachtwoord
+        echo "<script>alert('Onjuist wachtwoord');</script>";
+        }
+    }
+else {
         // Gebruiker niet gevonden
         echo "<script>alert('Gebruiker niet gevonden');</script>";
     }
-}
 
+}
 // Sluit de verbinding
 $conn->close();
 ?>
