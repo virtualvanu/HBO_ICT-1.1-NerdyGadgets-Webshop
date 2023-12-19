@@ -266,7 +266,7 @@ function checkInput() {
             }
 
             if ($verzendkostenTotaal > 0) {
-                print("€" . number_format($verzendkostenTotaal, 2, '.', '.'));
+                print("€" . number_format($verzendkostenTotaal, 2, ',', '.'));
             } else {
                 print("€0.00");
             }
@@ -283,7 +283,6 @@ function checkInput() {
             {
 
                 $cartTotal -= $kortingBedrag;
-                $displayCartTotalPrice = number_format($cartTotal, 2, ',', '.');
 
                 print("€". number_format($kortingBedrag, 2, ',','.'));
             }
@@ -300,21 +299,11 @@ function checkInput() {
     <p style="font-size: x-large; margin: 0">Totaal: <?php
         if(count($cart) > 0)
         {
-
-
-            print("€" . $displayCartTotalPrice); //TODO: verzendkosten (niet met display variables rekenen)
-
-            $cartTotal = getCartTotal($dbConnection);
-<<<<<<< HEAD
             $orderTotal = $cartTotal + $verzendkostenTotaal;
-            $displayOrderTotal = number_format($orderTotal, 2, '.', '.');
+            $displayOrderTotal = number_format($orderTotal, 2, ',', '.');
             print("€". ($displayOrderTotal));
-=======
             $orderTotal = $cartTotal + $verzendkosten - $kortingBedrag;
             $displayOrderTotal = number_format($orderTotal);
-
-
->>>>>>> feature/Chris
         }
         else
         {
