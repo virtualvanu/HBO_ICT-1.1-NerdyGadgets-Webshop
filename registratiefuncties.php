@@ -20,17 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $achternaam = $_POST["achternaam"];
     $email = $_POST["email"];
     $password = $_POST["password"];
-$query = "SELECT EmailAddress FROM people WHERE EmailAddress = '$email'";
-    if ($conn->query($query) != TRUE) {
-        echo "Emailaddress is al gebruikt";
+    $query = "SELECT EmailAddress FROM people WHERE EmailAddress = '$email'";
+    if ($conn->query($query) !== TRUE) {
+        echo "<script>alert('Emailadress al ingebruik');</script>";
         // Voorkom verdere uitvoering van de code als emails niet overeenkomen
+//        header('location: registratie.php');
         exit();
     }
 
     // Controleer of wachtwoorden overeenkomen
     $confirmPassword = $_POST["confirm_password"];
     if ($password !== $confirmPassword) {
-        echo "Wachtwoorden komen niet overeen";
+        echo "<script>alert('Wachtwoorden komen niet overeen');</script>";
         // Voorkom verdere uitvoering van de code als wachtwoorden niet overeenkomen
         exit();
     }
@@ -41,7 +42,7 @@ $query = "SELECT EmailAddress FROM people WHERE EmailAddress = '$email'";
     // Hash het wachtwoord met SHA-256
     $hashedPassword = hash('sha256', $password);
 
-$klant_naam = $fullName . " " . $betweenname . $achternaam;
+    $klant_naam = $fullName . " " . $betweenname . $achternaam;
     $sql = "INSERT INTO people (FullName,EmailAddress, HashedPassword, LastEditedBy) VALUES ('$klant_naam','$email', '$hashedPassword', '$lastEditedBy')";
 
     if ($conn->query($sql) === TRUE) {

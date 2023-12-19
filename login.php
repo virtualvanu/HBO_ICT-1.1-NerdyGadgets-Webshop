@@ -26,7 +26,7 @@ include 'loginfuncties.php'
 
 <div class="container" >
     <a href="http://localhost/nerdygadgets/registratie.php">
-        <button class="knop" style="display: inline-grid; margin-left: -105px">Registreren</button>
+        <button class="knop" style="display: inline-grid; margin-left: 85px">Registreren</button>
     </a>
 </div>
 </body>
