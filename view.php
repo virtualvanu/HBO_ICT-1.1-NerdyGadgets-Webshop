@@ -123,8 +123,8 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             <!-- formulier via POST en niet GET om te zorgen dat refresh van pagina niet het artikel onbedoeld toevoegt-->
                             <form method="post" position=absolute>
                                 <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
-                                <input type="number" name="itemAmount" value="1" min="1">
-                                <input type="submit" name="submit" value="In winkelmand" style="width: 200px" >
+                                <input type="number" name="itemAmount" value="1" min="1" style="width: 80px">
+                                <input type="submit" name="submit" value="In winkelmand" style="width: 200px" class="Voegtoeaanwinkelmand2">
                             </form>
                             <div class="message"> <!-- reserveert ruimte voor added to cart message onder button -->
 

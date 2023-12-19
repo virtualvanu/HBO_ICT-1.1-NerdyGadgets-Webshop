@@ -27,7 +27,7 @@
     background-color:#676EFF;
     border-radius: 8px;
     color: white;
-    padding: 20px 20px;
+    padding: 15px 15px;
     font-family: vortice-concept, sans-serif;
     font-weight: bold;
     font-size: 14px;
@@ -95,14 +95,9 @@
     width: 200px;
     height: 50px;
     margin-bottom: 15px;
-    margin-top: 20px;
+    margin-top: 10px;
 
 }
-/* Saves a space under add to cart button for message "added product to cart" */
-.message { 
-    min-height: 50px;
-}
-
 .CartOrderButtonDisabled{
     background-color:#65656a;
     border-radius: 8px;
@@ -177,22 +172,19 @@
     padding: 2px 2px;
     font-family: vortice-concept, sans-serif;
     font-weight: bold;
-    font-size: 8px;
+    font-size: 12px;
     width: 50px;
     height: 50px;
-    margin-bottom: 15px;
-    margin-top: 20px;
-
+    margin-top: 8px;
 }
 .Voegtoeaanwinkelmand1 {
     background-color: #676EFF;
     border-radius: 8px;
     color: white;
-    padding: 2px 2px;
     font-family: vortice-concept, sans-serif;
     font-weight: bold;
     font-size: 12px;
-    width: 320px;
+    width: auto;
     height: 50px;
     margin-bottom: 15px;
     margin-top: 20px;

@@ -279,7 +279,7 @@ if (isset($amount)) {
                             <form method="post">
                                 <input type="number" name="stockItemID" value="<?php print($row['StockItemID']) ?>" hidden>
                                 <input type="number" name="itemAmount" value="1" min="1" style="width: 80px;"><br>
-                                <input type="submit" name="submit" value="Voeg toe aan winkelmandje" class="Voegtoeaanwinkelmand1">
+                                <input type="submit" name="submit" value="In winkelmand" class="Voegtoeaanwinkelmand1">
                             </form>
 
                             <?php
