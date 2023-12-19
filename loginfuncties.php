@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
                 // Voer verdere acties uit voor ingelogde gebruiker
             }
-
+            header("Location: user_page.php");
         }
        else {
         // Onjuist wachtwoord
