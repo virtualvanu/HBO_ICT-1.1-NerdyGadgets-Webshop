@@ -1,71 +1,36 @@
 <?php
 include "header.php";
+include 'loginfuncties.php'
 ?>
 
 <!DOCTYPE html>
 
 
-<form action="action_page.php" method="post">
 
-    <div class="container">
-        <label for="uname"><b>Emailadress</b></label>
-        <input type="email" placeholder="Emailadress" name="uname" required>
-
-        <label for="psw"><b>Wachtwoord</b></label>
-        <input type="password" placeholder="Wachtwoord" name="psw" required>
-
-        <button type="submit">Login</button>
-<!--        <label class="checkBox">-->
-<!--            <input type="checkbox" checked="checked" name="remember"> Remember me-->
-<!--        </label>-->
+<body>
+<br><br>
+<form  method="post">
+    <div class="wholeform">
+        <div class="invoervelden">
+            <label for="email"></label>
+            <input type="email" id="email" placeholder="E-mailadres*" name="email" class="gegevens" style="display: inline-grid; margin-left: 300px" required><br>
+            <label for="password"></label>
+            <input type="password" id="password" name="password" placeholder="Wachtwoord*" class="gegevens" style="display: inline-grid; margin-left: 300px" required>
+        </div>
+        <div class="submission">
+            <input type="submit" value="Inloggen" class="knop" style="display: inline-grid">
+        </div>
     </div>
-
-
 </form>
 
+
 <div class="container" >
-    <a href="http://localhost/nerdygadgets/registreren.php">
-        <button class="registreren">Registreren</button>
+    <a href="http://localhost/nerdygadgets/registratie.php">
+        <button class="knop" style="display: inline-grid; margin-left: 85px">Registreren</button>
     </a>
 </div>
-
+</body>
 <?php
-
-$inlog_melding = "";
-
-if (!isset($_SESSION["klant_ingelogd"])) {
-    if (isset($_POST["login"])) {
-        if (isset($_POST["email"]) && isset($_POST["wachtwoord"])) {
-            $email = $_POST["email"];
-            $wachtwoord = $_POST["wachtwoord"];
-            $database = connectToDatabase();
-            $klant = getCustomerGegevens($database, $email, $wachtwoord);
-
-            if ($klant === false) {
-                $inlog_melding = "<p style='color: red'>De ingevoerd gegevens zijn onjuist</p>";
-
-            } else {
-
-                $_SESSION["klant_ingelogd"] = $klant;
-                if (isset($_POST["cart"])) {
-                    header("Location:/Nerdygadgets/afrekenen.php");
-                } else {
-                    header("Location:/Nerdygadgets/index.php");
-                }
-
-//                $inlog_melding = "<p style='color: green'>De ingevoerd gegevns zijn juist</p>";
-
-            }
-
-        }
-
-    }
-
-} else {
-
-    header("Location:/Nerdygadgets/browse.php");
-}
-
 
 ?>
 

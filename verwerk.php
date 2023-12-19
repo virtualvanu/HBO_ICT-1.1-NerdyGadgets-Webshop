@@ -17,9 +17,6 @@ include "cartfuncties.php";
 
      finishOrder($databaseConnection); //TEMPORARY Delete the contents of your cart when this page is loaded. TODO: Implement this to happen after payment.
 
-function finishOrder($databaseConnection)
-{
-    $cart = getCart();
 
     foreach ($cart as $itemId => $itemAmount)
     {
@@ -87,6 +84,11 @@ function finishOrder($databaseConnection)
 
 
          </div>
+
+         <a href="http://localhost/nerdygadgets/order.php">
+             <button type="submit" class="CartOrderButton">Afrekenen</button>
+         </a>
+
          <br><br>
      </div>
 <!-- <h1 class="CartOverviewHeader">Overzicht</h1>-->

@@ -96,46 +96,19 @@ function getStockItemImage($id, $databaseConnection) {
 
     return $R;
 }
-function klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $adres, $postcode, $woonplaats, $land)
+function klantToevoegenInDatabase($databaseConnection, $klant_naam, $email,$DefinitiefWachtwoord , $adres, $postcode, $woonplaats, $land)
 {
-    $query = "INSERT INTO klant (klantnaam, email,adres,postcode,woonplaats,land)
-VALUES ('$klant_naam','$email','$adres','$postcode','$woonplaats', '$land')";
+    $query = "INSERT INTO people (FullName, EmailAddress, HashedPassword ,adress,postcode,woonplaats,land)
+VALUES ('$klant_naam','$email', '$DefinitiefWachtwoord' ,'$adres','$postcode','$woonplaats', '$land')";
     $statement = mysqli_prepare($databaseConnection, $query);
     mysqli_stmt_execute($statement);
 
 }
-function getCustomerGegevens($databaseConnection, $email)
-{
-    $query =
-        "
-    SELECT *
-    FROM klant
-    WHERE email = '$email'";
-
-    //    mysqli_query($database, $query);
-    $result = mysqli_query($databaseConnection, $query);
-    $markerData = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    $klant_naam = $markerData['klantnaam'];
-    $email = $markerData['email'];
-    $adres = $markerData['adres'];
-    $postcode = $markerData['postcode'];
-    $woonplaats = $markerData['woonplaats'];
-    $land = $markerData['land'];
 
 
 
-}
 
-function controlerenGegevens($databaseConnection, $email){
-    $query ="
-    SELECT email
-    FROM klant
-    WHERE email = '$email'
-    ";
-    $statement = mysqli_prepare($databaseConnection, $query);
-    mysqli_stmt_execute($statement);
 
-}
 
 function orderToevoegen($database, $klant_id, $betaalWijze, $datum)
 {
@@ -233,4 +206,23 @@ function getDiscountedPrice($id, $databaseConnection)
         return $price;
     }
 
+}
+function orderRegelToevoegen($database, $order_id, $klant_Id, $stockItemID, $aantal_stockItem)
+{
+    $query = "INSERT INTO orderregel (OrderID,CustomerID,StockItemID,aantal)
+            VALUES (?,?,?,?)";
+    $stmt = mysqli_prepare($database,$query);
+    mysqli_stmt_bind_param($stmt,"iiii",$order_id,$klant_Id,$stockItemID,$aantal_stockItem);
+    if (!mysqli_stmt_execute($stmt)) {
+        print mysqli_error($database);
+    }
+}
+
+function updateStockItemHolding($database, $stockItemID, $aantal)
+{
+    $query = "UPDATE stockitemholdings SET QuantityOnHand = QuantityOnHand - '$aantal' WHERE StockItemID = '$stockItemID'";
+    if (!mysqli_query($database, $query)) {
+        print mysqli_error($database);
+
+    }
 }
