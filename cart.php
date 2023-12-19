@@ -33,6 +33,8 @@ function checkInput() {
         return false;
     }
 }
+<table class="CartTable" style="width: 60%;">
+
 </script>
 
     <?php
@@ -111,6 +113,12 @@ function checkInput() {
     }
 
     foreach($cart as $itemId => $itemAmount) //Populate the cart with added products
+
+    $cartTotal = 0;
+    $kortingBedrag =  0;
+
+
+    foreach($cart as $itemId => $itemAmount)
     {
 
 
@@ -123,9 +131,9 @@ function checkInput() {
         $itemPrice = round($itemInfo["SellPrice"], 2);
         $totalItemPrice = $itemPrice * $itemAmount;
 
-        $displayItemPrice = number_format($itemPrice, 2, '.', '.');
-        $displayPrice = number_format($totalItemPrice, 2, '.', '.');
-        $displayCartTotalPrice = number_format(getCartTotal($dbConnection), 2, '.', '.');
+        $displayItemPrice = number_format($itemPrice, 2, ',', '.');
+        $displayPrice = number_format($totalItemPrice, 2, ',', '.');
+        $displayCartTotalPrice = is_numeric(number_format(getCartTotal($dbConnection), 2, ',', '.'));
 
         $htmlstring = "
       <tr>
@@ -184,9 +192,41 @@ function checkInput() {
         </tr>";
 
         print($htmlstring);
+        $cartTotal = getCartTotal($dbConnection);
+        $displayCartTotalPrice = number_format($cartTotal, 2, ',', '.');
+    }
+    //KORTING WINKELMAND
+    if(isset($_POST['applyDiscount'])) {
+        $discountCode = $_POST['kortingscode'];
+
+        $discountInfo = getDiscountInfo($discountCode, $dbConnection);
+
+        if ($discountInfo) {
+            $ingangsdatum = strtotime($discountInfo['Ingangsdatum']);
+            $vervaldatum = strtotime($discountInfo['Vervaldatum']);
+            $huidigeDatum = time();
+
+
+            if ($huidigeDatum >= $ingangsdatum && $huidigeDatum <= $vervaldatum) {
+                $kortingPercentage = $discountInfo['Kortingspercentage'];
+                $kortingBedrag = round(($kortingPercentage / 100) * $cartTotal);
+                $cartTotal -= $kortingBedrag;
+
+                $_SESSION['appliedDiscount'] = $discountCode;
+
+                echo "<script>alert('De kortingscode is toegevoegd aan de winkelmand!');</script>";
+            } else {
+
+                echo "<script>alert('Voer een geldige kortingscode in!');</script>";
+            }
+        } else {
+
+            echo "<script>alert('Voer een geldige kortingscode in!');</script>";
+        }
     }
 
     print("</table>");
+
     ?>
 
 </table>
@@ -205,7 +245,7 @@ function checkInput() {
     <p style="font-size: x-large; margin: 0">Artikelen: <?php
         if(count($cart) > 0)
         {
-            print("€$displayCartTotalPrice");
+            print("€". $displayCartTotalPrice);
         }
         else
         {
@@ -231,15 +271,50 @@ function checkInput() {
                 print("€0.00");
             }
         ?>
-    </p>
+
+
+
+    <form method="post" action="cart.php" style="margin-bottom: 20px;">
+
+        <input type="text" id="kortingscode" name="kortingscode" placeholder="Voer kortingscode in" style="width: 200px;">
+        <input type="submit" value="Toepassen" name="applyDiscount" class="CartOrderButton">
+        <p style="text-align: center; font-size: x-large; margin: 0">Korting:  <?php
+            if(isset($_POST['applyDiscount']))
+            {
+
+                $cartTotal -= $kortingBedrag;
+                $displayCartTotalPrice = number_format($cartTotal, 2, ',', '.');
+
+                print("€". number_format($kortingBedrag, 2, ',','.'));
+            }
+            else
+            {
+                print("€0.00");
+            }
+            ?>
+    </form>
+
+
+
     <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
     <p style="font-size: x-large; margin: 0">Totaal: <?php
         if(count($cart) > 0)
         {
+
+
+            print("€" . $displayCartTotalPrice); //TODO: verzendkosten (niet met display variables rekenen)
+
             $cartTotal = getCartTotal($dbConnection);
+<<<<<<< HEAD
             $orderTotal = $cartTotal + $verzendkostenTotaal;
             $displayOrderTotal = number_format($orderTotal, 2, '.', '.');
             print("€". ($displayOrderTotal));
+=======
+            $orderTotal = $cartTotal + $verzendkosten - $kortingBedrag;
+            $displayOrderTotal = number_format($orderTotal);
+
+
+>>>>>>> feature/Chris
         }
         else
         {
@@ -248,10 +323,10 @@ function checkInput() {
         ?>
 
     </p>
-<br>
+
     <a href="http://localhost/nerdygadgets/Bestelscherm.php">
     <?php
-        
+
         if(count(getCart()) <= 0){
             print ('<button class="CartOrderButtonDisabled" disabled>BESTELLEN</button>');
         }else{

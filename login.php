@@ -3,17 +3,13 @@ include "header.php";
 ?>
 
 <!DOCTYPE html>
-<div class="container" >
-    <a href="http://localhost/nerdygadgets/registreren.php">
-        <button class="registreren">Registreren</button>
-    </a>
-</div>
+
 
 <form action="action_page.php" method="post">
 
     <div class="container">
         <label for="uname"><b>Emailadress</b></label>
-        <input type="text" placeholder="Emailadress" name="uname" required>
+        <input type="email" placeholder="Emailadress" name="uname" required>
 
         <label for="psw"><b>Wachtwoord</b></label>
         <input type="password" placeholder="Wachtwoord" name="psw" required>
@@ -26,6 +22,12 @@ include "header.php";
 
 
 </form>
+
+<div class="container" >
+    <a href="http://localhost/nerdygadgets/registreren.php">
+        <button class="registreren">Registreren</button>
+    </a>
+</div>
 
 <?php
 

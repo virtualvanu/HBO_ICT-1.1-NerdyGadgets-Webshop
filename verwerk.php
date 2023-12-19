@@ -47,6 +47,7 @@ function finishOrder($databaseConnection)
 //else {
 //    klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
 //}
+
 //klantToevoegenInDatabase($databaseConnection, $klant_naam, $email, $hetadres, $postcode, $woonplaats, $land);
 ?>
 
