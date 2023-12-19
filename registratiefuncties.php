@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $query = "SELECT EmailAddress FROM people WHERE EmailAddress = '$email'";
-    if ($conn->query($query) !== TRUE) {
+    if ($conn->query($query)->num_rows == 1) {
         echo "<script>alert('Emailadress al ingebruik');</script>";
         // Voorkom verdere uitvoering van de code als emails niet overeenkomen
 //        header('location: registratie.php');
