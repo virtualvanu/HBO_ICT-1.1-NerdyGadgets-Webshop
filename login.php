@@ -18,7 +18,7 @@ include 'loginfuncties.php'
             <input type="password" id="password" name="password" placeholder="Wachtwoord*" class="gegevens" style="display: inline-grid; margin-left: 300px" required>
         </div>
         <div class="submission">
-            <input type="submit" value="Inloggen" class="knop" style="display: inline-grid">
+            <input type="submit" value="Inloggen" class="knop" style="display: inline-grid; width: 21.5%">
         </div>
     </div>
 </form>
