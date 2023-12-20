@@ -112,11 +112,11 @@
 }
 
 .fa fa-bank{
-    width: 50%;
+    width: 30%;
     float: left;
 }
 .banken{
-    width: 50%;
+    width: 30%;
     float: left;
 }
 
@@ -198,5 +198,26 @@
     font-weight: bold;
     color: antiquewhite;
     margin-left: 300px;
-    padding: 40px;
+    padding: 10px;
+}
+.TotaalKosten{
+    display: inline-block;
+    top: 295px;
+    position: absolute;
+    margin-right: 450px;
+    margin-left: 650px;
+    width: 350px;
+    text-align: center;
+    background-color: rgb(35, 35, 47);
+    border-radius: 8px;
+    border:solid antiquewhite;
+    color: antiquewhite;
+}
+.VerwerkCartOverview{
+    border-radius: 8px;
+    background-color: rgb(35, 35, 47);
+    border:solid antiquewhite;
+    color: antiquewhite;
+    width: 450px;
+    right: 0;
 }
