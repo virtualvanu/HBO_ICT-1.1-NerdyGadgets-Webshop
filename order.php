@@ -1,14 +1,17 @@
 <?php
 include "header.php";
 include "verwerkfuncties.php";
+include "cartfuncties.php";
+
 $databaseConnection = connectToDatabase();
 
 //Create order
 $customerID = $_SESSION['CustomerID'];
-$orderID = CreateOrder($customerID, $databaseConnection);
-//Create orderlines and empty the cart
-//FinishOrder($orderID, $databaseConnection);
+$orderID = GetOrderID($databaseConnection);
+CreateOrder($customerID, $databaseConnection);
 
+//Create orderlines and empty the cart
+FinishOrder($orderID, $databaseConnection);
 
 
 

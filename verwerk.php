@@ -4,7 +4,6 @@ include "cartfuncties.php";
 include "verwerkfuncties.php";
 
 $databaseConnection = connectToDatabase();
-
 ?>
 
 
