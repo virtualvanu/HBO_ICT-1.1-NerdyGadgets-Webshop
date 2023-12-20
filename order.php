@@ -9,8 +9,15 @@ if(count(getCart()) > 0) //Check if there are products in the cart to prevent em
 {
     //Create order
     $customerID = $_SESSION['CustomerID'];
+
+    mysqli_autocommit($databaseConnection, 0);
+    mysqli_begin_transaction($databaseConnection); // Begin SQL transaction in case of errors
+
     $orderID = GetOrderID($databaseConnection);
     CreateOrder($customerID, $databaseConnection);
+
+    mysqli_commit($databaseConnection);
+    mysqli_begin_transaction($databaseConnection);
 
     //Create orderlines and empty the cart
     FinishOrder($orderID, $databaseConnection);
