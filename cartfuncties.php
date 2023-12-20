@@ -108,10 +108,8 @@ function berekenVerzendKosten($packageType, $quantity) {
             $kosten = 6.95 * ceil($aantalStuks / 15);
             break;
         case 9: // Packet
-            $usbAantallen = $quantity[0];
-            $actionFigureAantallen = $quantity[1];
-            $totaalAantal = $usbAantallen + $actionFigureAantallen;
-            $kosten = 6.95 * ceil($totaalAantal / 10); 
+            $aantalPakketen = $quantity;
+            $kosten = 6.95 * ceil($aantalPakketen / 10);
             break;
         case 10: // Pair
             $aantalParen = $quantity;
