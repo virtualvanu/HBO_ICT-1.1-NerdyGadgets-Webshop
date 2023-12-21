@@ -8,8 +8,8 @@ def temperature_to_db():
     # Connect to the MySQL database
     try:
         cnx = mysql.connector.connect(
-            user='root',
-            password='',
+            user='temperaturesensor',
+            password='1234',
             host='10.80.17.11',
             database='nerdygadgets',
             port=3306
