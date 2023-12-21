@@ -253,7 +253,7 @@ function checkInput() {
         }
         ?>
     </p>
-        <p style="font-size: x-large; margin: 0">Verzendkosten: <?php
+        <p style="font-size: x-large; margin: 0">Verzendkosten: <?php //Haalt verzendkosten op voor alle producten in de cart.
             $verzendkostenTotaal = 0;
 
             $productInCart = getCart();

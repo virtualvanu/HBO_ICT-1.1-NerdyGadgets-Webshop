@@ -128,10 +128,10 @@ function orderToevoegen($database, $klant_id, $betaalWijze, $datum)
 
 }
 
-function ischilled($id){ //checks if a product is chilled or not.
+function ischilled($id){  //checks if a product is chilled or not.
     $Connection = null;
 
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // Set MySQLi to throw exceptions
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // Maakt verbinding met database
     try {
         $Connection = mysqli_connect("localhost", "superadmin", "Welkom01", "nerdygadgets");
         mysqli_set_charset($Connection, 'latin1');
@@ -140,7 +140,7 @@ function ischilled($id){ //checks if a product is chilled or not.
     catch (Exception $e){
         print($e);
     }
-    $ischillerstock = null;
+    $ischillerstock = null; // Checks product ID chilled of niet.
     $databaseConnection = $Connection;
     $ischillerstock = "SELECT IsChillerStock FROM stockitems WHERE StockItemID = '$id'";
     $result = $databaseConnection->query($ischillerstock);

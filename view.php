@@ -80,9 +80,9 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
-            <?php 
-            if(ischilled($_GET['id']) == 1){
-                print('<div>Temperature: <span id="temperature"></span>°C</div>');
+            <?php // executes ischilled functie en zoekt of product in database is chilled.
+            if(ischilled($_GET['id']) == 1){ // if product is chilled dan word de code uitgevoerd.
+                print('<div>Temperature: <span id="temperature"></span>°C</div>'); 
             };
             ?>
             

@@ -95,7 +95,7 @@ function getCartTotal($databaseConnection)
     return $cartTotal;
 }
 
-function berekenVerzendKosten($packageType, $quantity) {
+function berekenVerzendKosten($packageType, $quantity) { // Berekend verzendkosten voor elk item
     $kosten = 0;
 
     switch ($packageType) {
@@ -123,7 +123,7 @@ function berekenVerzendKosten($packageType, $quantity) {
 
     return $kosten;
 }
-function getPackageType($stockItemID){
+function getPackageType($stockItemID){ // Haalt juiste package type voor elk product uit database om verzendkosten te kunnen berekenen.
     $Connection = null;
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
