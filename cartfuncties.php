@@ -128,7 +128,7 @@ function getPackageType($stockItemID){
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     try {
-        $Connection = mysqli_connect("localhost", "root", "", "nerdygadgets");
+        $Connection = mysqli_connect("localhost", "superadmin", "Welkom01", "nerdygadgets");
         mysqli_set_charset($Connection, 'latin1');
         $DatabaseAvailable = true;
     }

@@ -7,7 +7,7 @@ function connectToDatabase() {
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // Set MySQLi to throw exceptions
     try {
-        $Connection = mysqli_connect("localhost", "root", "Welkom01", "nerdygadgets");
+        $Connection = mysqli_connect("localhost", "superadmin", "Welkom01", "nerdygadgets");
         mysqli_set_charset($Connection, 'latin1');
         $DatabaseAvailable = true;
     } catch (mysqli_sql_exception $e) {
@@ -133,7 +133,7 @@ function ischilled($id){ //checks if a product is chilled or not.
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // Set MySQLi to throw exceptions
     try {
-        $Connection = mysqli_connect("localhost", "root", "Welkm01", "nerdygadgets");
+        $Connection = mysqli_connect("localhost", "superadmin", "Welkom01", "nerdygadgets");
         mysqli_set_charset($Connection, 'latin1');
         $DatabaseAvailable = true;
     }

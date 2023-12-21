@@ -4,7 +4,7 @@
 // Verbinding maken met de database
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "Welkom01";
 $dbname = "nerdygadgets";
 
 // Maak verbinding
