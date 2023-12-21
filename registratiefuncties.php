@@ -16,7 +16,12 @@ if ($conn->connect_error) {
 // Hier haal je gegevens op vanuit het formulier
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fullName = $_POST["voornaam"];
-    $betweenname = (empty($_POST["tussenvoegsel"])) ? " " : $_POST["tussenvoegsel"] . " ";
+    if (empty($_POST["tussenvoegsel"])) {
+        $betweenname ='';
+    }else{
+        $betweenname = ($_POST["tussenvoegsel"]. ' ');
+
+    }
     $achternaam = $_POST["achternaam"];
     $email = $_POST["email"];
     $password = $_POST["password"];

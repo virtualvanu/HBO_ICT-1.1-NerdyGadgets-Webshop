@@ -111,9 +111,14 @@
     margin-top: 20px;
 }
 
-.fa fa-bank{
+.bank{
     width: 30%;
     float: left;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(35, 35, 47);
+    font-size: 26px;
+
 }
 .banken{
     width: 30%;
@@ -206,7 +211,7 @@
     position: absolute;
     margin-right: 450px;
     margin-left: 650px;
-    width: 350px;
+    width: 320px;
     text-align: center;
     background-color: rgb(35, 35, 47);
     border-radius: 8px;
@@ -220,4 +225,13 @@
     color: antiquewhite;
     width: 450px;
     right: 0;
+    position: absolute;
+    top: 290px;
+    margin-right: 10px;
+}
+.bestelGegevens{
+    border:solid antiquewhite;
+    color: antiquewhite;
+    background-color: rgb(35, 35, 47);
+    border-radius: 8px;
 }
