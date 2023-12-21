@@ -2,6 +2,10 @@
 include 'header.php';
 include 'klantformulierfunctie.php';
 
+//if (empty($_SESSION['PersonID'])){
+//
+//    header("Location: login.php");
+//}
 ?>
 
 <!DOCTYPE html>

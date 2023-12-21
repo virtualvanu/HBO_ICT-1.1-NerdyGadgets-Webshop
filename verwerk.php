@@ -12,17 +12,17 @@ $databaseConnection = connectToDatabase();
  <body >
  <h1 style="margin-left: 20px;"> <?php if(!empty($_SESSION['voornaam'])) {echo ($_SESSION['voornaam']); } ?>, u kunt nu uw bestelling afronden</h1>
  <div id="bestelldiv" class="center" style="margin-left: 20px;">
-     <div id="bestellen">
+     <div id="bestellen" >
          <p>Controleer uw besteladres.</p>
 
-         <div id="anderadres" class="border" style="width: 40%">
+         <div id="anderadres" class="bestelGegevens" style="width: 40%">
              <div id="afleveradres" style="width: 30%">
-                 <p>Afleveradres: <br>Naam: <?php if(!empty($_SESSION['voornaam'])) {echo ($_SESSION['voornaam']); } ?> <br> Adres: <?php if(!empty($_SESSION['straatnaam']) ){echo ($_SESSION['straatnaam']);}   ?> <br>
-                     Postcode: <?php if(!empty($_SESSION['postcode'])) {echo ($_SESSION['postcode']); } ?> <br> Woonplaats: <?php if(!empty($_SESSION['plaats']) ){echo ($_SESSION['plaats']);}   ?></p>
+                 <p> Afleveradres: <br> Naam: <?php if(!empty($_SESSION['voornaam'])) {echo ($_SESSION['voornaam']); } ?> <br>  Adres: <?php if(!empty($_SESSION['straatnaam']) ){echo ($_SESSION['straatnaam']);}   ?> <br>
+                      Postcode: <?php if(!empty($_SESSION['postcode'])) {echo ($_SESSION['postcode']); } ?> <br>  Woonplaats: <?php if(!empty($_SESSION['plaats']) ){echo ($_SESSION['plaats']);}   ?></p>
              </div>
          </div>
          <br>
-         <h4 class="fa fa-bank"> IDeal betalen:</h4>
+         <p class="bank" > Kies uw bank:</p>
          <br>
          <div >
              <form action="order.php" method="post" id="banken" style="width: 20%">
@@ -48,10 +48,36 @@ $databaseConnection = connectToDatabase();
 
          <br><br>
      </div>
-<!-- <h1 class="CartOverviewHeader">Overzicht</h1>-->
+
  <br>
 
+     <div class='VerwerkCartOverview'>
+         <table>
+            <br>
+             <?php
+             $cart = getCart();
+             foreach ($cart as $itemId => $itemAmount){
+                 $images = getStockItemImage($itemId, $databaseConnection);
+                 $firstImagePath = $images[0]['ImagePath'];
+                 $itemInfo = getStockItem($itemId, $databaseConnection);
+                 $itemName = $itemInfo["StockItemName"];
 
+                 print "
+            
+            <tr>
+             <img src='Public/StockItemIMG/$firstImagePath'  class='CartImageStyle' style='display: inline-block;width: 100px;
+        height: 100px;'>
+             </tr>
+             <tr style='width: 50%;'>
+                <a href='view.php?id=$itemId' style=' margin-left: 10px; font-size: 16px;'>$itemName</a>
+            </tr><br><br>
+            
+            ";
+             }
+             ?>
+         </table>
+
+     </div>
 
 
      <div id="afrekenen" class="TotaalKosten" style="margin-right: 100px">
@@ -78,7 +104,7 @@ $databaseConnection = connectToDatabase();
 
          </p>
 
-         <p style="text-align: center; font-size: x-large; margin: 0">----------------------------------------</p>
+         <p style="text-align: center; font-size: x-large; margin: 0">--------------------------------</p>
          <p style="font-size: x-large; margin: 0">Totaal: <?php
              print ("€".(number_format($_SESSION['OrderTotal'], 2, ',', '.')));
              ?>
@@ -87,35 +113,9 @@ $databaseConnection = connectToDatabase();
      </p>
      <br>
      </div>
+
+
  </div>
-        <div class='VerwerkCartOverview'>
-             <table >
-
-              <?php
-            $cart = getCart();
-            foreach ($cart as $itemId => $itemAmount){
-             $images = getStockItemImage($itemId, $databaseConnection);
-             $firstImagePath = $images[0]['ImagePath'];
-                $itemInfo = getStockItem($itemId, $databaseConnection);
-                $itemName = $itemInfo["StockItemName"];
-
-             print "
-            
-            <tr>
-             <img src='Public/StockItemIMG/$firstImagePath'  class='CartImageStyle' style='display: inline-block;width: 100px;
-        height: 100px;'>
-             </tr>
-             <tr style='width: 50%;'>
-                <a href='view.php?id=$itemId' style=' margin-left: 10px; font-size: 16px;'>$itemName</a>
-            </tr><br><br>
-            
-            ";
-            }
-            ?>
-            </table>
-
-        </div>
-
 
 
  </body>

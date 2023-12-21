@@ -16,7 +16,7 @@ $dbConnection = connectToDatabase();
 </head>
 <body >
 
-<h1 style="margin-left: 45px;">Inhoud Winkelwagen</h1>
+<h1 style="margin-left: 45px;">Inhoud Winkelwagen </h1>
 <table class="CartTable" style="width: 60%;">
     <tr>
         <th>Afbeelding</th>
@@ -277,7 +277,15 @@ function checkInput() {
     <form method="post" action="cart.php" style="margin-bottom: 20px;">
 
         <input type="text" id="kortingscode" name="kortingscode" placeholder="Voer kortingscode in" style="width: 200px;">
-        <input type="submit" value="Toepassen" name="applyDiscount" class="CartOrderButton">
+        <?php
+
+        if(count(getCart()) <= 0) {
+
+            print ('<input type ="submit" value ="Toepassen" name ="applyDiscount" class="CartOrderButtonDisabled" disabled>');
+        }else{
+            print ('<input type ="submit" value ="Toepassen" name ="applyDiscount" class="CartOrderButton">');
+        }
+        ?>
         <p style="text-align: center; font-size: x-large; margin: 0">Korting:  <?php
             if(isset($_POST['applyDiscount']))
             {
@@ -304,6 +312,12 @@ function checkInput() {
             print("€". ($displayOrderTotal));
             $orderTotal = $cartTotal + $verzendkosten - $kortingBedrag;
             $displayOrderTotal = number_format($orderTotal);
+            $_SESSION['VerzendKost'] = $verzendkosten;
+            $_SESSION['Totaalwinkelmand'] = $cartTotal;
+            $_SESSION['Korting'] = $kortingBedrag;
+            $_SESSION['OrderTotal'] = $orderTotal;
+
+
         }
         else
         {
@@ -325,5 +339,6 @@ function checkInput() {
         ?>
     </a>
 </div>
+
 </body>
 </html>

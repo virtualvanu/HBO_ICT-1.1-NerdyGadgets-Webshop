@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $CustomerID = $_SESSION['CustomerID'];
 //        $sql_update_name = "UPDATE customers SET CustomerName = '' WHERE CustomerID = '$CustomerID'";
         if ($result1->num_rows > 0) {
-            $sql_update_customer = "UPDATE customers SET PrimaryContactPersonID = '$ingelogde_personID', PostalAddressLine1 = '$adress', PostalAddressLine2 = '$plaats' , PostalPostalCode = '$postcode', CustomerCategoryID = '3', DeliveryMethodID = '3', DeliveryCityID = '38184' ,PostalCityID = '38184', BillToCustomerID = 1 ,LastEditedBy = '1', CustomerName = '$customerNaam' WHERE CustomerID = '$CustomerID'";
+            $sql_update_customer = "UPDATE customers SET PrimaryContactPersonID = '$ingelogde_personID', PostalAddressLine1 = '$adress', PostalAddressLine2 = '$plaats' , PostalCode = '$postcode', CustomerCategoryID = '3', DeliveryMethodID = '3', DeliveryCityID = '38184' ,PostalCityID = '38184', BillToCustomerID = 1 ,LastEditedBy = '1', CustomerName = '$customerNaam' WHERE CustomerID = '$CustomerID'";
             $sql_update_name = "UPDATE people SET FullName = '$customerNaam' where PersonID = '$ingelogde_personID'";
             if ($conn->query($sql_update_customer) === TRUE && $conn->query($sql_update_name) === TRUE) {
                 echo "Klantinformatie succesvol aangepast.";
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
     }
     else {
-        $sql_insert_customer = "INSERT INTO customers (PrimaryContactPersonID, PostalAddressLine1, PostalAddressLine2 , PostalPostalCode, CustomerCategoryID, DeliveryMethodID, DeliveryCityID,PostalCityID, BillToCustomerID,LastEditedBy, CustomerName ) VALUES ('$ingelogde_personID','$adress', '$plaats' , '$postcode', '3', '3', '38184','38184','1','1', '$customerNaam')";
+        $sql_insert_customer = "INSERT INTO customers (PrimaryContactPersonID, PostalAddressLine1, PostalAddressLine2 , PostalCode, CustomerCategoryID, DeliveryMethodID, DeliveryCityID,PostalCityID, BillToCustomerID,LastEditedBy, CustomerName ) VALUES ('$ingelogde_personID','$adress', '$plaats' , '$postcode', '3', '3', '38184','38184','1','1', '$customerNaam')";
 
         if ($conn->query($sql_insert_customer) === TRUE) {
             echo "Klantinformatie succesvol toegevoegd.";
@@ -68,14 +68,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     }
     $CustomerID = $_SESSION['CustomerID'];
-    $query2 = "SELECT PostalAddressLine1, PostalAddressLine2, PostalPostalCode, CustomerName FROM customers WHERE CustomerID = '$CustomerID'";
+    $query2 = "SELECT PostalAddressLine1, PostalAddressLine2, PostalCode, CustomerName FROM customers WHERE CustomerID = '$CustomerID'";
     $result2 = $conn->query($query2);
 
     if ($result2->num_rows > 0) {
         $row = $result2->fetch_assoc();
         $_SESSION['straatnaam'] = $row['PostalAddressLine1'];
         $_SESSION['plaats'] = $row['PostalAddressLine2'];
-        $_SESSION['postcode'] = $row['PostalPostalCode'];
+        $_SESSION['postcode'] = $row['PostalCode'];
         $_SESSION['voornaam'] = $row['CustomerName'];
 
     }
