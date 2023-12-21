@@ -3,7 +3,7 @@
 
 // Verbinding maken met de database
 $servername = "localhost";
-$username = "root";
+$username = "superadmin";
 $password = "Welkom01";
 $dbname = "nerdygadgets";
 
