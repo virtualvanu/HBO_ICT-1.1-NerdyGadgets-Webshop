@@ -1,11 +1,10 @@
 # !!!place this file on your raspberri pi with sensehat!!!
 
-from sense_hat import SenseHat
-import mysql.connector
-import time
+from sense_hat import SenseHat      # Importeer sensehat voor temeratuursensor
+import mysql.connector              # mysql.connector voor database
+import time                         # Time voor de 3 seconden loop.
 
-def temperature_to_db():
-    # Connect to the MySQL database
+def temperature_to_db(): # Maak verbinding met sql database
     try:
         cnx = mysql.connector.connect(
             user='temperaturesensor',
@@ -16,12 +15,10 @@ def temperature_to_db():
         )
         cursor = cnx.cursor()
 
-        # Get the temperature data
         sense = SenseHat()
-        temperature = sense.get_temperature()
+        temperature = sense.get_temperature() #krijgt temperatuur van sensehat
 
-        # Prepare the SQL query to insert data into the table
-        add_temperature = (
+        add_temperature = ( # stopt temperatuur in database tabel Coldroomtemperatures
             "INSERT INTO coldroomtemperatures "
             "(ColdRoomSensorNumber, RecordedWhen, Temperature, ValidFrom, ValidTo) "
             "VALUES (%s, NOW(), %s, NOW(), NOW() + INTERVAL 1 DAY)"
@@ -29,16 +26,15 @@ def temperature_to_db():
 
         data_temperature = (5, temperature)
 
-        # Execute the SQL query to insert temperature data
         cursor.execute(add_temperature, data_temperature)
-        cnx.commit()  # Commit changes to the database
+        cnx.commit() # changes worden gepushed naar database
         print("Data inserted successfully!")
 
-        # Find the newest entry for ColdRoomSensorNumber 5
+        # vind de nieuwste entry van ColdRoomSensorNumber 5
         cursor.execute("SELECT MAX(RecordedWhen) FROM ColdRoomTemperatures WHERE ColdRoomSensorNumber = 5")
         newest_record = cursor.fetchone()[0]
 
-        # Archive older records
+        # Archiveer alle oude data uit coldroomtemperatures
         archive_query = (
             "INSERT INTO ColdRoomTemperatures_archive "
             "SELECT * FROM ColdRoomTemperatures "
@@ -46,24 +42,24 @@ def temperature_to_db():
         )
         cursor.execute(archive_query, (newest_record,))
 
-        # Delete older records
+        # Delete oude records
         delete_query = (
             "DELETE FROM ColdRoomTemperatures "
             "WHERE ColdRoomSensorNumber = 5 AND RecordedWhen < %s"
         )
         cursor.execute(delete_query, (newest_record,))
-        cnx.commit()  # Commit changes to the database
+        cnx.commit()  # changes worden gepushed naar database
         print("Archiving and deletion executed!")
 
     except mysql.connector.Error as err:
-        print("Something went wrong: {}".format(err))
+        print("Something went wrong: {}".format(err)) # afvang voor als er iets fout gaat
 
     finally:
         if 'cnx' in locals() and cnx.is_connected():
             cursor.close()
             cnx.close()
 
-# Main loop to continuously record temperature and perform archiving/deletion
+# De loop die bovenstaande code elke 3 seconden herhaald.
 while True:
-    temperature_to_db()  # Record temperature data and execute archiving/deletion
+    temperature_to_db()
     time.sleep(3)

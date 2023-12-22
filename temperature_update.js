@@ -1,4 +1,6 @@
-function updateTemperature() {
+//Javascript file om de temperatuur op de website elke 3 seconden te updaten.
+
+function updateTemperature() { 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         console.log(this.responseText)
@@ -6,11 +8,11 @@ function updateTemperature() {
             document.getElementById("temperature").innerText = this.responseText;
         }
     };
-    xhttp.open("GET", "temperature.php", true); // Make sure this path is correct
+    xhttp.open("GET", "temperature.php", true); // script dat elke 3 seconden moet worden uitgevoerd
     xhttp.send();
 }
-// Update temperature every 3 seconds
+// voert dit script elke 3 seconden uit
 setInterval(function () {
     updateTemperature();
-}, 3000); // 3 seconds in mili seconds
+}, 3000); // 3 seconden in mili seconden
 updateTemperature();
