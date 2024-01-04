@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result1 = $conn->query($query1);
                 if ($result1->num_rows > 0) {
                 $row = $result1->fetch_assoc();
-                $_SESSION['postcode'] = $row['PostalPostalCode'];;
+                $_SESSION['postcode'] = $row['PostalCode'];;
                 $_SESSION['plaats'] = $row["PostalAddressLine2"];
                 $_SESSION['straatnaam'] = $row["PostalAddressLine1"];
                 header("Location: user_page.php");
